@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+    <title>Dice</title>
+    <meta charset="utf-8" />
+
+    <link rel="icon" type="image/png" href="d6.png" />
+    <link rel="stylesheet" type="text/css" href="w3.min.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+
+    <style type="text/css">
+        * {
+            font-variant: small-caps !important;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        function Roll() {
+            var ddlDice = document.getElementById("ddlDice");
+            var numDice = ddlDice.options[ddlDice.selectedIndex].value;
+            var ddlSides = document.getElementById("ddlSides");
+            var numSides = ddlSides.options[ddlSides.selectedIndex].value;
+            var rand = 0.0;
+            var i = 0;
+            var childDiv = {};
+
+            //Add a space break to each data set
+            resultsDiv.innerHTML = '<br /><hr /><br />' + resultsDiv.innerHTML;
+
+            for (i = 0; i < numDice; i++) {
+
+                rand = Math.random() * numSides;
+                rand = rand.toFixed(0);
+                if (rand == 0) { rand = 1; }
+
+                //create dice in results
+                if (numSides == 4)  { resultsDiv.innerHTML = '<div class="spin1sec triangle-up"> <div class="w3-display-container" style= "padding-top: 40px;"> <div class="w3-display-middle"><b><label style="color: white;">' + rand + '</label></b></div></div></div>'                             + resultsDiv.innerHTML; }
+                if (numSides == 6)  { resultsDiv.innerHTML = '<div class="spin1sec w3-display-container w3-round w3-border w3-white w3-animate-opacity" style="width: 50px; height: 50px;"><div class="w3-display-middle"><b><span class="padding-4 w3-xxlarge">' + rand + '</span></b></div></div>'   + resultsDiv.innerHTML; }
+                if (numSides == 8)  { resultsDiv.innerHTML = '<div class="spin1sec w3-display-container w3-animate-opacity diamond-narrow"><div class="w3-display-middle" style="margin: 18px 0 24px 0;"><b style="color: white;">' + rand + '</b></div></div>'                                        + resultsDiv.innerHTML; }
+                if (numSides == 10) { resultsDiv.innerHTML = '<div class="spin1sec w3-display-container w3-animate-opacity diamond-shield" style="zoom: 66%;"><div class="w3-display-middle" style= "padding-top: 28px;"><b style="color: white">' + rand + '</b></div></div>'                              + resultsDiv.innerHTML; }
+                if (numSides == 12) { resultsDiv.innerHTML = '<div class="spin1sec w3-display-container w3-animate-opacity hexagon" style="zoom: 80%; margin-bottom: 24px;"><div class="w3-display-middle" style="margin-top: 0;"><b style="color: black;">' + rand + '</b></div></div>'                    + resultsDiv.innerHTML; }
+                if (numSides == 20) { resultsDiv.innerHTML = '<div class="spin1sec w3-display-container w3-round-xxlarge w3-orange" style="width: 40px; height: 40px;"><div class="w3-display-middle"><b>' + rand + '</b></div></div>'                                                                      + resultsDiv.innerHTML; }
+            }
+            
+        }
+
+        function Reset() {
+            //clear the resultsDiv
+            var resultsDiv = document.getElementById('resultsDiv');
+            resultsDiv.innerHTML = '';
+        }
+
+    </script>
+</head>
+<body>
+
+    <div class="w3-container w3-black w3-border-bottom frozen">
+        <div class="w3-container w3-black w3-border-bottom" style="left: 0; margin-left: 0; padding-left: 0;">
+            <div class="w3-dropdown-hover">
+                <button class="w3-button w3-black">
+                    <div class="bars1">&nbsp;</div>
+                    <div class="bars2">&nbsp;</div>
+                    <div class="bars3">&nbsp;</div>
+                </button>
+                <div class="w3-dropdown-content w3-bar-block w3-border w3-animate-opacity">
+                    <a href="home.html" class="w3-bar-item w3-button"><i class="fa fa-"></i></a>
+                    <a href="5e.html" class="w3-bar-item w3-button w3-light-grey">5e DnD Character Sheet</a>
+                    <a href="da.html" class="w3-bar-item w3-button">Dragon Age Character Sheet</a>
+                    <a href="cv.html" class="w3-bar-item w3-button w3-light-grey">CV</a>
+                    <a href="dice.html" class="w3-bar-item w3-button">Dice</a>
+                    <a href="gallery.html" class="w3-bar-item w3-button w3-light-grey">Gallery</a>
+                    <a href="hobbies.html" class="w3-bar-item w3-button">Hobbies</a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="w3-indigo w3-padding" style="margin: 0 0 0 0;">DICE</h2>
+        </div>
+
+        <!-- INTERFACE -->
+        <div style="height: 10px;">
+            &nbsp;
+        </div>
+
+        <div class="w3-container w3-table w3-half">
+            <div class="w3-col">
+                <!-- NUMBER OF DICE -->
+                <div class="w3-half">
+                    <label class="w3-col w3-xlarge">Number of Dice</label>
+                    <select id="ddlDice" class="w3-col w3-container w3-white w3-half" 
+                            style="font-size: 20px; font-weight: bolder; height: 30px;">
+                        <option class="w3-white" value="1">1</option>
+                        <option class="w3-light-grey" value="2">2</option>
+                        <option class="w3-white" value="3">3</option>
+                        <option class="w3-light-grey" value="4">4</option>
+                        <option class="w3-white" value="5">5</option>
+                        <option class="w3-light-grey" value="6">6</option>
+                        <option class="w3-white" value="7">7</option>
+                        <option class="w3-light-grey" value="8">8</option>
+                        <option class="w3-white" value="9">9</option>
+                        <option class="w3-light-grey" value="10">10</option>
+                        <option class="w3-white" value="11">11</option>
+                        <option class="w3-light-grey" value="12">12</option>
+                        <option class="w3-white" value="13">13</option>
+                        <option class="w3-light-grey" value="14">14</option>
+                        <option class="w3-white" value="15">15</option>
+                        <option class="w3-light-grey" value="16">16</option>
+                        <option class="w3-white" value="17">17</option>
+                        <option class="w3-light-grey" value="18">18</option>
+                        <option class="w3-white" value="19">19</option>
+                        <option class="w3-light-grey" value="20">20</option>
+                    </select>
+                </div>
+                <!-- END OF -  NUMBER OF DICE -->
+                <!-- NUMBER OF SIDES -->
+                <div class="w3-half">
+                    <label class="w3-col w3-xlarge">Number of Sides</label>
+                    <select id="ddlSides" class="w3-col w3-container w3-white w3-half" style="font-size: 20px; font-weight: bolder; height: 30px;">
+                        <option class="w3-white" value="4">4</option>
+                        <option class="w3-light-grey" value="6">6</option>
+                        <option class="w3-white" value="8">8</option>
+                        <option class="w3-light-grey" value="10">10</option>
+                        <option class="w3-white" value="12">12</option>
+                        <option class="w3-light-grey" value="20">20</option>
+                    </select>
+                </div>
+                <!-- END OF -  NUMBER OF DICE -->
+
+            </div>
+        </div>
+        <!-- BUTTONS -->
+        <div class="w3-container w3-table w3-half">
+            <input class="w3-btn w3-xlarge w3-round-large w3-border w3-indigo w3-animate-opacity" type="button" value="Roll" onclick="Roll();" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="w3-btn w3-xlarge w3-round-large w3-border w3-red w3-animate-opacity" type="button" value="Reset" onclick="Reset();" />
+        </div>
+        <!-- END OF - BUTTONS -->
+        <!-- END OF - INTERFACE -->
+        <!-- SEPARATOR -->
+        <div class="w3-margin w3-padding">
+            &nbsp;
+        </div>
+        <hr />
+        <!-- END OF - SEPARATOR -->
+
+    </div>
+
+    <div class="scrollable" style="padding-top: 180px; overflow: hidden; z-index: 0;">
+
+        <div id="resultsDiv" class="w3-padding-24 w3-container w3-blue">
+            <div class="w3-table">
+                <div class="w3-row w3-half w3-left">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END OF -  SCROLLABLE DIV -->
+</body>
+</html>

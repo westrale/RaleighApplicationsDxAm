@@ -1,0 +1,1296 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+    <title>Dragon Age Character Sheet</title>
+    <meta charset="UTF-8">
+
+    <link rel="icon" type="image/png" href="orzammar.png" />
+    <link rel="stylesheet" type="text/css" href="w3.min.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	
+    <style type="text/css">
+        * {
+            font-variant: small-caps !important;
+        }
+    </style>
+    
+    <script>
+    	function Save() {
+	        if (typeof(Storage) != "undefined") {
+			    alert("START SAVE");
+				
+				var inputs, textareas, index;
+				inputs = document.getElementsByTagName('input');
+				textareas = document.getElementsByTagName('textarea');
+				
+				for (index = 0; index < inputs.length; ++index) {
+				    // deal with inputs[index] element.
+				    if ( inputs[index].type == "text" ) {
+					    if ( inputs[index].value != "" ) {
+					    	localStorage.setItem(inputs[index].id, document.getElementById(inputs[index].id).value);
+					    }
+					}
+					
+				    if ( inputs[index].type == "checkbox" ) {
+				   		if ( inputs[index].checked == true ) {
+				   			localStorage.setItem(inputs[index].id, "true" );
+				   		} else {
+				   		
+				   			localStorage.setItem(inputs[index].id, "false" );
+				   		}
+				    }
+				}
+				
+				for (index = 0; index < textareas.length; ++index) {
+				    // deal with textareas[index] element.
+				    if ( textareas[index].value != "" ) {
+                        localStorage.setItem(textareas[index].id, document.getElementById(textareas[index].id).value);
+					}
+				}
+				
+				alert("FINISHED SAVE");
+				
+			} else {
+			    alert("Your browser doesn't support HTML5 Local Storage.");
+			}
+		}
+	</script>
+
+
+    <script>
+    	function Load() {
+	        if (typeof(Storage) != "undefined") {
+				alert("START LOAD");
+				
+				var inputs, textareas, index;
+				inputs = document.getElementsByTagName('input');
+				textareas = document.getElementsByTagName('textarea');
+				
+				for (index = 0; index < inputs.length; ++index) {
+				   // deal with inputs[index] element.
+				   if ( inputs[index].type == "text" ) {
+					    document.getElementById(inputs[index].id).value = 
+					    	localStorage.getItem(inputs[index].id);
+					}
+				   if ( inputs[index].type == "checkbox" ) {
+				   		if ( localStorage.getItem(inputs[index].id) == "true" ) {
+				   			inputs[index].checked = true;
+				   		} else {
+				   			inputs[index].checked = false;
+				   		}
+				    }
+				}
+				
+				for (index = 0; index < textareas.length; ++index) {
+				    // deal with textareas[index] element.
+				    document.getElementById(textareas[index].id).value = 
+				    	localStorage.getItem(textareas[index].id);
+				}
+				
+				alert("FINISHED LOAD");
+			} else {
+			    alert("Your browser doesn't support HTML5 Local Storage.");
+			}
+		}
+	</script>
+
+    <script>
+    	function Clear() {
+	        if (typeof(Storage) != "undefined") {
+				alert("START CLEAR");
+				
+				var inputs, textareas, index;
+				inputs = document.getElementsByTagName('input');
+				textareas = document.getElementsByTagName('textarea');
+				
+				for (index = 0; index < inputs.length; ++index) {
+				    // deal with inputs[index] element.
+					if ( (inputs[index].type) == "text" || inputs[index].type == "checkbox") {
+					    localStorage.setItem(inputs[index].id, "");
+					}
+				}
+				
+				for (index = 0; index < textareas.length; ++index) {
+				    // deal with inputs[index] element.
+					    localStorage.setItem(inputs[index].id, "");
+				}
+				
+				alert("FINISHED CLEAR");
+				
+				// Apply Erasing
+				Load();
+			} else {
+			    alert("Your browser doesn't support HTML5 Local Storage.");    
+			}
+		}
+	</script>
+
+</head>
+
+<body style="background-color: darkred;">
+
+    <div class="w3-container w3-black w3-border-bottom frozen">
+        <div class="w3-dropdown-hover">
+            <button class="w3-button w3-black">
+                <div class="bars1">&nbsp;</div>
+                <div class="bars2">&nbsp;</div>
+                <div class="bars3">&nbsp;</div>
+            </button>
+            <div class="w3-dropdown-content w3-bar-block w3-border w3-animate-opacity">
+                <a href="home.html" class="w3-bar-item w3-button">Home</a>
+                <a href="5e.html" class="w3-bar-item w3-button w3-light-grey">5e D&D Character Sheet</a>
+                <a href="da.html" class="w3-bar-item w3-button">Dragon Age Character Sheet</a>
+                <a href="cv.html" class="w3-bar-item w3-button w3-light-grey">CV</a>
+                <a href="dice.html" class="w3-bar-item w3-button">Dice</a>
+                <a href="gallery.html" class="w3-bar-item w3-button w3-light-grey">Gallery</a>
+                <a href="hobbies.html" class="w3-bar-item w3-button">Hobbies</a>
+            </div>
+        </div>
+    </div>
+    
+    <div  class="w3-container w3-black">
+        <div class="w3-row">
+        	<h3 class="">Dragon Age Character Sheet</h3>
+           	<input class="w3-teal w3-animate-opacity" id="btnSave" type="button" 
+        		value="Save" onclick="Save();" />
+           	<input class="w3-amber w3-animate-opacity" id="btnLoad" type="button" 
+        		value="Load" onclick="Load();" />
+           	<input class="w3-red w3-animate-opacity" id="btnClear" type="button" 
+        		value="Clear" onclick="Clear();" />
+    	</div>
+    </div>
+
+</div>
+
+<div class="scrollable" style="width: 950px;">
+
+    <form id="form1" >
+
+	<div style="margin: 10px 10px 10px 10px;">
+
+        <div id="MassBattleForceCard"
+             class="w3-card-4 w3-half w3-white w3-round-xlarge">
+            <h4 class="w3-padding w3-black">MASS BATTLE FORCE CARD</h4>
+
+            <label class="w3-black" id="lblFrcNmTtl">Force Name</label>
+            <input type="text" class="w3-input w3-animate-input" id="txtFrcNm" 
+            	style="width:75%;" />
+
+            <label class="w3-black" id="lblCmndrNm">Force Commander Name</label>
+            <input type="text" class="w3-input w3-animate-input" id="txtCmndrNm" 
+            	style="width:75%;" />
+
+            <div id="MassBattleForceCard_Sub_Left" class="w3-twothird">
+                <label class="w3-black" id="lblTrpTypTtl">Troop Type</label>
+                <input type="text" class="w3-input w3-animate-input" 
+                	id="txtTrpTyp" style="width:75%;" />
+
+                <label class="w3-black" id="lblStg1Spclsts">Stage1Specialists</label>
+                <input type="text" class="w3-input w3-border w3-animate-input" 
+                	id="txtStg1Spclsts" style="width:75%;" />
+
+                <label id="lblStg2Spclsts" class="w3-black">Stage2Specialists</label>
+                <input type="text" class="w3-input w3-border w3-animate-input" 
+                	id="txtStg2Spclsts" style="width:75%;" />
+
+                <label class="w3-black" 
+                	id="lblStg3SpclstsTtl">Stage3Specialists</label>
+                <input type="text" class="w3-input w3-border w3-animate-input"
+                	id="txtStg3Spclsts" style="width:75%;" />
+            </div>
+
+            <div id="MassBattleForceCard_Sub_Right" class="w3-third w3-padding">
+                <label class="w3-black" id="lblCmmndrCmmnctnLdrshpTtl" 
+                	>Commander's Commnunication (Leadership)</label>
+                <br />
+                <input type="text" class="w3-input w3-border w3-animate-input" 
+                	id="txtCmmndrCmmnctnLdrshp" />
+
+                <label class="w3-black" id="lblCmmndrsLdrshpMltryLrTtl"
+                	>Commander's Leadership (Military Lore)</label>
+                <br />
+                <input type="text" class="w3-input w3-border w3-animate-input" 
+                	id="txtCmmndrsLdrshpMltryLr" />
+
+                <label class="w3-black" id="lblNmbrTrpsTtl">Number of Troops</label>
+                <br />
+                <input type="text" class="w3-input w3-border w3-animate-input" 
+                	id="txtNmbrTrps" />
+            </div>
+
+        </div>
+
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+
+        <div class="w3-card-4 w3-white w3-border w3-half w3-right w3-round-xlarge">
+            <h4 class="w3-padding w3-black">INITIATIVE CARD</h4>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter">Name</label>
+                <input type="text" class="w3-border w3-third" id="txtInit1Name" style="width:135px;" />
+                <label class="w3-black w3-margin-right w3-right">Speed</label>
+                <label class="w3-black w3-margin-right w3-right">Initiative</label>
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter"
+                	id="lblInit1ClassLvlTtl">Class/Level</label>
+                <input type="text" 
+                	class="w3-border w3-third" 
+                	id="txtInit1ClassLvl1" 
+                	style="width:135px;" />
+                <input type="text" 
+                	class="w3-white w3-badge w3-large w3-margin-right w3-right" 
+                	id="txtInit1ClassLvl2"
+					style="width:50px;height:50px;" />
+                <input type="text" 
+                	class="w3-white w3-badge w3-large w3-margin-right w3-right"
+                	id="txtInit1ClassLvl3"
+                    style="width:50px;height:50px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1CommTtl">Comm</label>
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1ConTtl">Con</label>
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1CunnTtl">Cunn</label>
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1DextTtl">Dext</label>
+            </div>
+
+
+            <div class="w3-row">
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Comm" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Con" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Cunn" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Dext" style="height:50px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1MagTtl">Mag</label>
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1PercTtl">Perc</label>
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1StrTtl">Str</label> 
+                <label class="w3-black w3-center w3-quarter" 
+                	id="lblInit1WillTtl">Will</label>
+            </div>
+
+            <div class="w3-row" style="height:50px;">
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Mag" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Perc" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Str" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" 
+                	id="txtInit1Will" style="height:50px;" />
+            </div>
+        </div>
+
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+
+        <div class="w3-card-4 w3-white w3-border w3-half w3-right w3-round-xlarge">
+            <h4 class="w3-padding w3-black">INITIATIVE CARD</h4>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter" id="lblInit2NameTtl">Name</label>
+                <input type="text" class="w3-border w3-third" 
+                	id="txtInit2Name" style="width:135px;" />
+                <label class="w3-black w3-margin-right w3-right"
+                	id="lblInit2SpdTtl">Speed</label>
+                <label class="w3-black w3-margin-right w3-right" 
+                	id="lblInit2InitTtl">Initiative</label>
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter">Class/Level</label>
+                <input type="text" class="w3-border w3-third" id="txtInit2ClassLvl1" 
+                	style="width:135px;" />
+                <input type="text" 
+                	class="w3-white w3-badge w3-large w3-margin-right w3-right" 
+                	id="txtInit2ClassLvl2" 
+                	style="width:50px;height:50px;" />
+                <input type="text" 
+                	class="w3-white w3-badge w3-large w3-margin-right w3-right" 
+                	id="txtInit2ClassLvl3" 
+                    style="width:50px; height:50px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-center w3-quarter" id="lblInit2CommTtl">Comm</label>
+                <label class="w3-black w3-center w3-quarter" id="lblInit2ConTtl">Con</label>
+                <label class="w3-black w3-center w3-quarter" id="lblInit2CunnTtl">Cunn</label>
+                <label class="w3-black w3-center w3-quarter" id="lblInit2DextTtl">Dext</label>
+            </div>
+
+
+            <div class="w3-row">
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Comm" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Con" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Cunn" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2CDext" style="height:50px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-center w3-quarter" id="lblInit2MagTtl">Mag</label>
+                <label class="w3-black w3-center w3-quarter" id="lblInit2PercTtl">Perc</label>
+                <label class="w3-black w3-center w3-quarter" id="lblInit2StrTtl">Str</label>
+                <label class="w3-black w3-center w3-quarter" id="lblInit2WillTtl">Will</label>
+            </div>
+
+            <div class="w3-row" style="height:50px;">
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Mag" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Perc" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Str" style="height:50px;" />
+                <input type="text" class="w3-border w3-center w3-quarter" id="txtInit2Will" style="height:50px;" />
+            </div>
+        </div>
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+        <div id="QuickReferenceCard"
+             class="w3-card-4 w3-half w3-white w3-round-xlarge">
+            <h4 class="w3-padding w3-black">QUICK REFERENCE CARD</h4>
+
+            <!-- Summary TextBoxes -->
+            <div class="w3-threequarter w3-left">
+                <label class="w3-black" id="lblQckNmTtl">Name</label>
+                <input type="text" class="w3-border" id="txtQckNm" 
+                	style="width:75%;" />
+
+                <div class="w3-row">
+                    <label class="w3-black w3-third" id="lblQckClssLvlTtl">Class/Level</label>
+                    <input type="text" class="w3-border w3-twothird w3-margin-bottom"
+                    	id="txtQckClssLvl" />
+                </div>
+            </div>
+
+            <div class="w3-right w3-margin-right w3-margin-bottom">
+                <label class="w3-black" id="lblQckHlthTtl">Health</label><br />
+                <input type="text" class="w3-border" id="txtQckHlth" 
+                	style="width: 50px; height: 50px;" />
+            </div>
+
+            <!-- Stats -->
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckCommTtl">Communication</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckCommScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckCommDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckConTtl">Constitution</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckConScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckConDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckCunnTtl">Cunning</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckCunnScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckCunnDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckDexTtl">Dexterity</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckDexScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckDexDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckMagTtl">Magic</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckMagicScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckMagicDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckPerc">Perception</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckPercScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckPercDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckStr">Strength</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckStrScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckStrDscr" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblQckWill" >Willpower</label>
+                <input type="text" class="w3-border w3-quarter" id="txtQckWillScr" 
+                	style="width:50px;" />
+                <input type="text" class="w3-border w3-half" id="txtQckWillDscr" />
+            </div>
+
+            <div>
+
+                <div class="w3-twothird w3-left">
+                    <table class="w3-table">
+                        <tr class="w3-black">
+                            <td>Weapon</td>
+                            <td>Attack Roll</td>
+                            <td>Damage</td>
+                        </tr>
+                        <tr class="w3-white">
+                            <td><input type="text" class="w3-half" id="txtQckWpn1" /></td>
+                            <td><input type="text" class="w3-half" id="txtQckAtk1" /></td>
+                            <td><input type="text" class="w3-half" id="txtQckDmg1" /></td>
+                        </tr>
+                        <tr class="w3-grey">
+                            <td><input type="text" class="w3-half" id="txtQckWpn2" /></td>
+                            <td><input type="text" class="w3-half" id="txtQckAtk2" /></td>
+                            <td><input type="text" class="w3-half" id="txtQckDmg2"  /></td>
+                        </tr>
+                        <tr class="w3-white">
+                            <td><input type="text" class="w3-half" id="txtQckWpn3" /></td>
+                            <td><input type="text" class="w3-half" id="txtQckAtk3" /></td>
+                            <td><input type="text" class="w3-half" id="txtQckDmg3" /></td>
+                        </tr>
+                    </table>
+
+                    <label class="w3-black" id="lblQckPwrs">Powers</label>
+                    <input type="text" class="w3-input w3-border w3-animate-input" id="txtQckPwrs" 
+                    	style="width:75%;" />
+                </div>
+
+                <div class="w-onethird w-right">
+                    <label class="w3-black w3-margin" id="lblQckSpd" >Speed</label>
+                    <input type="text" class="w3-margin" id="txtQckSpd" style="width:50px;" />
+
+                    <label class="w3-black w3-margin" id="lblQckDef">Defense</label>
+                    <input type="text" class="w3-margin" id="txtQckDef" style="width:50px;" />
+
+                    <label class="w3-black w3-margin" id="lblQckArm">Armor</label>
+                    <input type="text" class="w3-margin" id="txtQckArm" style="width:50px;" />
+                </div>
+
+				<div class="w3-row">
+	                <label class="w3-black" id="lblQckEquipTtl">Defense</label>
+	                <input type="text" class="w3-input w3-border w3-animate-input" id="txtQckEquip" 
+	                	style="width:75%;" />
+				</div>
+            </div>
+
+        </div>
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+        <div class="w3-card-4 w3-white w3-border w3-half w3-right w3-round-xlarge">
+            <h4 class="w3-padding w3-black">SPELL CARD</h4>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblSpll1NmTtl">Name</label>
+                <input type="text" class="w3-border w3-quarter" id="txtSpll1Nm" 
+                	style="width:135px;" />
+                <label class="w3-black w3-quarter w3-right" 
+                	id="lblSpll1MnCstTtl">Mana Cost</label>
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblSpll1SchlTtl">School/Type</label>
+                <input type="text" class="w3-border w3-quarter" id="txtSpll1Schl" 
+                	style="width:135px;" />
+                <input type="text" class="w3-quarter w3-right"  id="txtSpll1Type" 
+                	style="width:100px;height:35px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter w3-rest" 
+                	id="lblSpll1CastTtl">Cast Time</label>
+                <input type="text" class="w3-border w3-quarter" id="txtSpll1Cast" 
+                	style="width:135px;" />
+                <label class="w3-black w3-quarter w3-rest w3-right" 
+                	id="lblSpll1TnTtl">TN</label><br />
+                <input type="text" class="w3-quarter w3-right" id="txtSpll1Tn" 
+                	style="width:100px; height:35px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter" id="lblSpll1TstTtl">Test</label>
+                <input type="text" 
+                	class="w3-input w3-border w3-animate-input w3-quarter" 
+                	id="txtSpll1Tst" style="width:50%" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter" 
+                	id="lblSpll1EffctTtl">Spell Effect</label>
+                <input type="text" 
+                	class="w3-input w3-border w3-animate-input w3-quarter" 
+                	id="txtSpll1Effct" style="width:50%" />
+            </div>
+
+        </div>
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+        <div class="w3-card-4 w3-white w3-border w3-half w3-right w3-round-xlarge">
+            <h4 class="w3-padding w3-black">SPELL CARD</h4>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" id="lblSpll2NmTtl">Name</label>
+                <input type="text" class="w3-border w3-quarter" id="txtSpll2Nm" 
+                	style="width:135px;" />
+                <label class="w3-black w3-quarter w3-right" 
+                	id="lblSpll2MnCstTtl">Mana Cost</label>
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-third" 
+                	id="lblSpll2SchlTtl">School/Type</label>
+                <input type="text" class="w3-border w3-quarter" id="txtSpll2Schl" 
+                	style="width:135px;" />
+                <input type="text" class="w3-quarter w3-right" id="txtSpll2Typ" 
+                	style="width:100px;height:35px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter w3-rest" 
+                	id="lblSpll2CstTmTtl">Cast Time</label>
+                <input type="text" class="w3-border w3-quarter" id="txtSpll2CstTm" 
+                	style="width:135px;" />
+                <label class="w3-black w3-quarter w3-rest w3-right" 
+                	id="lblSpll2TnTtl">TN</label><br />
+                <input type="text" class="w3-quarter w3-right" id="txtSpll2Tn" 
+                	style="width:100px; height:35px;" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter" id="lblSpll2TstTtl">Test</label>
+                <input type="text" class="w3-input w3-border w3-animate-input w3-quarter" id="txtSpll2Tst" 
+                	style="width:50%" />
+            </div>
+
+            <div class="w3-row">
+                <label class="w3-black w3-quarter" 
+                	id="lblSpll2EffctTtl">Spell Effect</label>
+                <input type="text" 
+                	class="w3-input w3-border w3-animate-input w3-quarter" 
+                	id="txtSpll2Effct" style="width:50%" />
+            </div>
+
+        </div>
+        
+	</div>
+	
+        <!-- Full Character Sheet -->
+        <div class="w3-bar w3-row w3-black" style="height: 50px;">
+        	&nbsp;
+        </div>
+
+        <div class="w3-container w3-margin">
+
+            <div class="w3-third">
+        	    <label class="w3-xxlarge w3-serif w3-padding" id="lblCharDrgnAgeTtl"
+        	    	style="color: white; text-shadow: 4px 4px 8px white;">Dragon Age</label>
+                <br />
+                <div class="w3-row">
+                    <div class="w3-black w3-row w3-bar" style="width:50%;">
+                        <label class="w3-black" id="lblCharNmTtl">Name</label>
+                    </div>
+                    <input type="text" class="w3-input w3-border w3-animate-input" 
+                    	id="txtCharNm" style="width: 50%;" />
+                </div>
+
+                <div class="w3-row">
+                    <div class="w3-black w3-row w3-bar"
+                         style="width:50%;">
+                        <label class="w3-black" 
+                        	id="lblCharBckgrndTtl">Background</label>
+                    </div>
+                    <input type="text" class="w3-input w3-border w3-animate-input" 
+                    	id="txtCharBckgrnd" style="width: 50%;" />
+                </div>
+
+                <div  class="w3-half">
+                    <label class="w3-black w3-col" id="lblCharAgeTtl">Age</label>
+                    <input type="text" class="w3-border" id="txtCharAge" 
+                    	style="width: 100%; height:40px;" />
+                </div>
+                <div  class="w3-half">
+                    <label class="w3-black w3-col" id="lblCharGndrTtl">Gender</label>
+                    <input type="text" class="w3-border" id="txtCharGndr" 
+                    	style="width: 100%; height:40px;" />
+                </div>
+
+                <div  class="w3-padding">
+                    &nbsp;
+                </div>
+
+                <div class="w3-white w3-padding-bottom w3-half">
+
+                    <div class="w3-black w3-container w3-row w3-bar">
+                        <label class="w3-black" 
+                        	id="lblCharApprncTtl">Appearance</label>
+                    </div>
+                    <div class="w3-row">
+                        <label class="w3-margin-left w3-white" 
+                        	id="lblCharHghtTtl">Height</label>
+                        <input type="text" 
+                        	class="w3-input w3-border-bottom w3-animate-input w3-twothird w3-right" 
+                        	id="txtCharHght" style="width:75%;" 
+                        	/>
+                    </div>
+                    <div class="w3-row w3-padding-bottom">
+                        <label class="w3-margin-left w3-white" id="lblCharWghtTtl">Weight</label>
+                        <input type="text" 
+                        	class="w3-input w3-border-bottom w3-animate-input w3-twothird w3-right w3-padding" 
+                        	id="txtCharWght"
+                        	style="width:75%;" />
+                        <br />
+                    </div>
+                    <br />
+
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity" id="lblCharDistFeatTtl" 
+                    	style="margin-top: 50px; left: 200px; height:50px; width: 50px; vertical-align: middle; position: absolute; z-index: 2;"
+                    	>Distinguishing Features</label>
+                    <textarea id="txtarCharDistFeat"
+                    	style="height:166px; width: 145px; vertical-align: middle; position: absolute; z-index: 1;"></textarea>
+                </div>
+
+                <div style="margin-bottom: 175px;">
+                    &nbsp;
+                </div>
+
+
+                <div class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharCommTtl">Communication</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" id="txtCharCommScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharCommFocusTtl"
+                    	style="width: 20px; height: 20px; position: absolute; z-index: 0;">Focuses</label>
+                    <textarea class="w3-opacity-min w3-white" id="txtarCharCommFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"></textarea>
+                </div>
+                <div  class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharCommBns" 
+                    	style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div  class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharConTtl">Constitution</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" id="txtCharConScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharConFocusTtl"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;">Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharConFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"
+                        ></textarea>
+                </div>
+                <div class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharConBns" 
+                    	style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div  class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharCunnScrTtl">Cunning</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" 
+                    	id="txtCharCunnScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharCunnFocusTtl"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;"
+                    	>Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharCunnFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"></textarea>
+                </div>
+                <div class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharCunnBns" 
+                    	style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharDexScrTtl">Dexterity</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" id="cbCharDexScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharDexFocusTtl"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;"
+                    	>Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharDexFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"
+                        ></textarea>
+                </div>
+                <div class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharDexBns" 
+                    	style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div  class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharMagTtl">Magic</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" 
+                    	id="cbCharMagScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharMagFocusTtl"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;">Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharMagFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"
+                        ></textarea>
+                </div>
+                <div class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharMagBns" 
+                    	style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharPercTtl">Perception</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" id="cbCharPercScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharPercFocusTtl"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;">Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharPercFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"
+                        ></textarea>
+                </div>
+                <div  class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharPercBns" style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div  class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharStrTtl">Strength</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" 
+                    	id="cbCharStrScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharStrFcs"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;">Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharStrFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"
+                        ></textarea>
+                </div>
+                <div  class="w3-quarter w3-right">
+                    <input type="text" class="w3-border" id="txtCharStrBns" 
+                    	style="width:100%; height: 50px;" />
+                </div>
+
+
+                <div  class="w3-container w3-black w3-bar">
+                    <label class="w3-black" id="lblCharWillTtl">Willpower</label>
+                    <input type="checkbox" class="w3-checkbox w3-black" 
+                    	id="cbCharWillScr" />
+                </div>
+                <div class="w3-white">
+                    <label class="w3-opacity-min w3-xxlarge" id="lblCharWillFcsTtl"
+                    	style="width: 80px; height: 20px; position: absolute; z-index: 1;">Focuses</label>
+                    <textarea class="w3-white w3-opacity-min" id="txtarCharWillFcs"
+                    	style="width: 225px; height:50px; position: absolute; z-index: 1;"
+                        ></textarea>
+                </div>
+                <div class="w3-quarter w3-right w3-white">
+                    <input type="text" class="w3-white w3-border" id="txtCharWillBns"
+                    	style="width: 100%; height: 50px;" />
+                </div>
+
+            </div>
+
+			<div class="w3-twothird">
+				
+				<div class="w3-row">
+					<div class="w3-row">
+						<div class="w3-third w3-left">
+							<label class="w3-left w3-black w3-bar w3-center" 
+								id="lblCharClssTtl">Class</label>
+							<br />
+							<input type="text" class="w3-input w3-border w3-left" 
+								id="txtCharClss" />
+						</div>
+						<div class="w3-third">
+							<label class="w3-opacity" id="lblCharLvl"
+								style="margin-top: 5px; margin-left: 60px; position: absolute; z-index: 2;"
+								>Level</label>
+							<input type="text" 
+								class="w3-opacity-min w3-white w3-badge w3-border-black w3-input w3-middle w3-center" 
+								id="txtCharLvl"
+								style="position: absolute; width: 65px; height: 65px; margin-left: 50px; border-top: 1px solid black; z-index: 1;"
+								/>
+						</div>
+						<div class="w3-third w3-right">
+							<label class="w3-right w3-black w3-bar w3-center"
+								>Experience Points</label>
+							<br />
+							<input type="text" class="w3-input w3-border w3-right" 
+								id="txtCharExp" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="w3-row">
+					<div class="w3-row">
+						<div class="w3-twothird w3-white">
+							<label class="w3-black w3-quarter w3-center" 
+								id="lblCharSpdTtl">Speed</label>
+							<label class="w3-black w3-quarter w3-center" 
+								id="lblCharDefTtl">Defense</label>
+							<label class="w3-black w3-quarter w3-center" 
+								id="lblCharArmrTtl">Armor</label>
+							<label class="w3-black w3-quarter w3-center" 
+								id="lblCharPnltyTtl">Penalty</label>
+							<br />
+							<input type="text" class="w3-badge w3-quarter w3-white" 
+								id="txtCharSpd"
+								style="margin-left:46px; height:40px;width:40px;" />
+							<input type="text" class="w3-badge w3-quarter w3-white" 
+								id="txtCharDef" 
+								style="margin-left:46px; height:40px;width:40px;" />
+							<label class="w3-opacity-min" id="lblApTtl" 
+								style="height:40px;width:40px; left:552px; z-index: 0; position: absolute;"
+								>AP</label>
+							<input type="text" 
+								class="w3-badge w3-quarter w3-white w3-opacity" 
+								id="txtCharArmr" 
+								style="margin-left:46px; height:40px;width:40px; z-index:0;" />
+							<input type="text" class="w3-badge w3-quarter w3-white" 
+								id="txtCharPnltyBdg" 
+								style="margin-left:46px; height:40px;width:40px;" />
+							<br />
+							<label class="w3-opacity-max w3-xxlarge w3-left" 
+								id="lblArmrTyp" 
+								style="left: 425px; padding-top: 16px; position: absolute; z-index: 0;"
+								>ARMOR TYPE</label>
+							<textarea class="w3-input w3-border w3-opacity" 
+								id="txtarCharArmrTyp" 
+								style="height:72px; position: absolute; z-index: 1;"
+								></textarea>
+						</div>
+						<div class="w3-third w3-white w3-center" style="height:134px;">
+							<label class="w3-black w3-container w3-bar" id="lblHlthTtl" 
+								style="width: 100%;">Health</label>
+							<br />
+							<input type="text" class="w3-input w3-border" 
+								id="txtCharHlth" 
+								style="padding-top: 0; height: 45px;" />
+							<br />
+							<div class="w3-white w3-right">
+								<input type="text" 
+									class="w3-opacity w3-badge w3-border-black w3-border-top w3-white" 
+									id="txtCharHlthBdg" 
+									style="width: 40px; height: 40px; z-index: 1;" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="w3-row">
+					<div class="w3-center w3-black">
+						<label class="w3-black w3-rest" id="lblCharClssSpcTtl"
+							>Class Specializations</label>
+					</div>
+					<div class="w3-right w3-white" style="padding: 0 48px 0 0;">
+							<label class="w3-opacity-min" id="lblCharClssManaTtl"
+								style="width:45px; height:45px; position: absolute; z-index: 0;">Mana</label>
+							<input type="text" class="w3-badge w3-white w3-opacity" 
+								id="txtCharClssSpcBdg" 
+								style="width:45px; height:45px; position: absolute; z-index: 1;" />
+					</div>
+					<div class="w3-input w3-white">
+						<textarea class="w3-input w3-border w3-animate-input" id="txtarCharClssSpc"
+							style="height: 450px; z-index: 1;"></textarea>
+					</div>
+				</div>
+				
+				<div class="w3-row">
+					<label class="w3-black w3-row w3-border w3-third" 
+						id="lblCharMvTtl">Move</label>
+					<label class="w3-black w3-row w3-border w3-third" 
+						id="lblCharChrgTtl">Charge</label>
+					<label class="w3-black w3-row w3-border w3-third" 
+						id="lblCharRnTtl">Run</label>
+					<br />
+					<div class="w3-row w3-white">
+						<div class="w3-center w3-bar">
+							<label class="w3-opacity" id="lblInYrdsTtl"
+								style="left: 585px; position: absolute; z-index: 0;"
+								>IN YARDS</label>
+						</div>
+						<input type="text" class="w3-opacity w3-border w3-third" 
+							id="txtCharMv1"
+							style="height: 40px; z-index: 1;" />
+						<input type="text" class="w3-opacity w3-border w3-third" 
+							id="txtCharChrg1"
+							style="height: 40px; z-index: 1;" />
+						<input type="text" class="w3-opacity w3-border w3-third" 
+							id="txtCharRn1"
+							style="height: 40px; z-index: 1;" />
+					</div>
+					<div class="w3-row w3-white">
+						<div class="w3-center w3-bar">
+							<label class="w3-opacity" id="lblCharSqrsHxsTtl" 
+								style="left: 545px; position: absolute; z-index: 0;"
+								>IN SQUARES/HEXES</label>
+						</div>
+						<input type="text" class="w3-opacity w3-border w3-third" 
+							id="txtCharMv2"
+							style="height: 40px; z-index: 1;" />
+						<input type="text" class="w3-opacity w3-border w3-third" 
+							id="txtCharChrg2" 
+							style="height: 40px; z-index: 1;" />
+						<input type="text" class="w3-opacity w3-border w3-third" 
+							id="txtCharRn2" 
+							style="height: 40px; z-index: 1;" />
+					</div>
+				</div>
+				
+				<div class="w3-row">
+					<div class="w3-row">
+						<label class="w3-black w3-bar w3-third" 
+							id="lblCharMelWpnTtl">Melee Weapon</label>
+						<label class="w3-black w3-bar w3-third"
+							id="lblCharAtkTtl">Attack Roll</label>
+						<label class="w3-black w3-bar w3-third"
+							id="lblCharDmgTtl">Damage</label>
+					</div>
+					<div class="w3-row">
+						<input type="text" class="w3-third" id="txtCharMelWpn1"
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharAtk1"
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharDmg1"
+							style="height: 40px;" />
+					</div>
+					<div class="w3-row">
+						<input type="text" class="w3-third" id="txtCharMelWpn2"
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharAtk2"
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharDmg2"
+							style="height: 40px;" />
+					</div>
+					<div class="w3-row">
+						<input type="text" class="w3-third" id="txtCharMelWpn3" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharAtk3" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharDmg3" 
+							style="height: 40px;" />
+					</div>
+					<div class="w3-row">
+						<input type="text" class="w3-third" id="txtCharMelWpn4" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharAtk4" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharDmg4" 
+							style="height: 40px;" />
+					</div>
+					<div class="w3-row">
+						<input type="text" class="w3-third" id="txtCharMelWpn5" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharAtk5" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharDmg5" 
+							style="height: 40px;" />
+					</div>
+					<div class="w3-row">
+						<input type="text" class="w3-third" id="txtCharMelWpn6" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharAtk6" 
+							style="height: 40px;" />
+						<input type="text" class="w3-third" id="txtCharDmg6" 
+							style="height: 40px;" />
+					</div>
+					<div class="w3-row w3-white">
+						<div class="w3-opacity w3-row w3-bar w3-center">
+							<label id="lblCharWpnGrpsNtsTtl"
+								style="left: 520px; position: absolute; z-index: 1;"
+								>WEAPON GROUPS &amp; NOTES</label>
+						</div>
+						<input type="text" class="w3-opacity w3-third" id="txtCharWpnGrp1"
+							style="height: 50px; z-index: 2;" />
+						<input type="text" class="w3-opacity w3-third" id="txtCharWpnGrp2" 
+							style="height: 50px; z-index: 2;" />
+						<input type="text" class="w3-opacity w3-third" id="txtCharWpnGrp3"
+							style="height: 50px; z-index: 2;" />
+					</div>
+				</div>
+				
+			</div>
+				
+		</div>
+
+        <div class="w3-container w3-margin" >
+			
+            <div class="w3-black w3-cell-row">
+                <label class="w3-black w3-cell" id="lblCharRngdWpnTtl">Ranged Weapon</label>
+                <label class="w3-black w3-cell" id="lblCharAtkRllTtl">Attack Roll</label>
+                <label class="w3-black w3-cell" id="lblCharWpnDmgTtl">Damage</label>
+                <label class="w3-black w3-cell" id="lblCharShrtRngTtl">Short Range</label>
+                <label class="w3-black w3-cell" id="lblCharLngRngTtl">Long Range</label>
+                <label class="w3-black w3-cell" id="lblCharRldTmTtl">Reload Time</label>
+            </div>
+			
+            <div  class="w3-white w3-cell-row">
+                <input type="text" class="w3-border w3-cell" id="txtCharRngdWpn1" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharAtkRll1" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharWpnDmg1" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharShrtRng1" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharLngRng1" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharRldTm1" 
+                	style="width: 16%; text-align: center;" />
+            </div>
+			
+            <div  class="w3-white w3-cell-row">
+                <input type="text" class="w3-border w3-cell" id="txtCharRngdWpn2" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharAtkRll2" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharWpnDmg2" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharShrtRng2" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharLngRng2" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharRldTm2" 
+                	style="width: 16%; text-align: center;" />
+            </div>
+			
+            <div  class="w3-white w3-cell-row">
+                <input type="text" class="w3-border w3-cell" id="txtCharRngdWpn3" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharAtkRll3" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharWpnDmg3" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharShrtRng3" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharLngRng3" 
+                	style="width: 16%; text-align: center;" />
+                <input type="text" class="w3-border w3-cell" id="txtCharRldTm3" 
+                	style="width: 16%; text-align: center;" />
+            </div>
+		
+        </div>
+
+        <div class="w3-bar w3-row w3-black" style="height: 50px;">
+        	&nbsp;
+        </div>
+        
+        <div style="padding-top: 1px;">
+        	&nbsp;
+        </div>
+        
+        <div class="w3-cell-row w3-center" style="padding-left: 8px; padding-right: 8px;">
+        	<label class="w3-black w3-cell" id="lblCharSpllNmTtl" 
+        		style="width: 135px;" >Spell Name</label>
+        	<label class="w3-black w3-cell" id="lblCharSchlTtl" 
+        		style="width: 135px;" >School</label>
+        	<label class="w3-black w3-cell" id="lblCharTypTtl" 
+        		style="width: 135px;" >Type</label>
+        	<label class="w3-black w3-cell" id="lblCharMnCstTtl" 
+        		style="width: 135px;" >Mana Cost</label>
+        	<label class="w3-black w3-cell" id="lblCharCstTmTtl" 
+        		style="width: 135px;" >Cast Time</label>
+        	<label class="w3-black w3-cell" id="lblCharTnTtl" 
+        		style="width: 135px;" >TN</label>
+        	<label class="w3-black w3-cell" id="lblCharTstTtl" 
+        		style="width: 135px;" >TEST</label>
+        </div>
+        <div class="w3-row w3-table w3-bar w3-center w3-rest" 
+        	style="width: 100%;">
+        	<input type="text" class="w3-border" id="txtCharSpllNm1" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharSchl1" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTyp1" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharMnCst1" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharCstTm1" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTn1" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTst1" 
+        		style="width: 135px;" />
+        </div>
+        <div class="w3-row w3-table w3-bar w3-center w3-rest" 
+        	style="width: 100%;">
+        	<input type="text" class="w3-border" id="txtCharSpllNm2" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharSchl2" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTyp2" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharMnCst2" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharCstTm2" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTn2" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTst2" 
+        		style="width: 135px;" />
+        </div>
+        <div class="w3-row w3-table w3-bar w3-center w3-rest" 
+        	style="width: 100%;">
+        	<input type="text" class="w3-border" id="txtCharSpllNm3" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharSchl3" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTyp3" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharMnCst3" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharCstTm3" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTn3" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTst3" 
+        		style="width: 135px;" />
+        </div>
+        <div class="w3-row w3-table w3-bar w3-center w3-rest" 
+        	style="width: 100%;">
+        	<input type="text" class="w3-border" id="txtCharSpllNm4" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharSchl4" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTyp4" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharMnCst4" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharCstTm4" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTn4" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTst4" 
+        		style="width: 135px;" />
+        </div>
+        <div class="w3-row w3-table w3-bar w3-center w3-rest" 
+        	style="width: 100%;">
+        	<input type="text" class="w3-border" id="txtCharSpllNm5" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharSchl5" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTyp5" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharMnCst5" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharCstTm5" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTn5" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTst5" 
+        		style="width: 135px;" />
+        </div>
+        <div class="w3-row w3-table w3-bar w3-center w3-rest" 
+        	style="width: 100%;">
+        	<input type="text" class="w3-border" id="txtCharSpllNm6" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharSchl6" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTyp6" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharMnCst6" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharCstTm6" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTn6" 
+        		style="width: 135px;" />
+        	<input type="text" class="w3-border" id="txtCharTst6" 
+        		style="width: 135px;" />
+        </div>
+        
+        <div class="w3-row w3-bar w3-margin-top" 
+        	style="padding-left: 8px; padding-right: 8px;">
+        	<label class="w3-black w3-quarter w3-center" 
+        		id="lblCharTlntNmTtl">Talent Name</label>
+        	<label class="w3-black w3-quarter w3-center" 
+        		id="lblCharNvcTtl">Novice</label>
+        	<label class="w3-black w3-quarter w3-center" 
+        		id="lblCharJrnymnTtl">Journeyman</label>
+        	<label class="w3-black w3-quarter w3-center" 
+        		id="lblCharMstrTtl">Master</label>
+        	<br />
+        	<textarea class="w3-quarter" id="txtarCharTlntNm" 
+        		style="height: 250px;"></textarea>
+        	<textarea class="w3-quarter" id="txtarCharNvc" 
+        		style="height: 250px;"></textarea>
+        	<textarea class="w3-quarter" id="txtarCharJrnymn" 
+        		style="height: 250px;"></textarea>
+        	<textarea class="w3-quarter" id="txtarCharMstr" 
+        		style="height: 250px;"></textarea>
+        </div>
+        
+        <div style="margin: 10px 10px 10px 10px;">
+	        <div class="w3-half">
+	        	<div class="w3-black w3-center">
+	        		<label class="w3-rest" id="lblCharLnggsTtl" 
+	        			style="width: 100%;">Languages</label>
+	        		<br />
+	        		<textarea id="txtarCharLnggs" 
+	        			style="width: 100%; height: 100px;"></textarea>
+	        	</div>
+	        	<div class="w3-black w3-center">
+	        		<label id="lblCharCncptGlsTsTtl" 
+	        			style="width: 100%;">Concept Goals &amp; Ties</label>
+	        		<br />
+	        		<textarea id="txtarCharCncptGlsTs" 
+	        			style="width: 100%; height: 400px;"></textarea>
+	        	</div>
+		    </div>
+		    
+		    <div class="w3-half">
+		    	<div class="w3-black w3-center">
+		    		<label class="w3-black w3-center" id="lblCharEqpmntTtl" 
+		    			style="width:100%;">Equipment</label>	    		
+		    	</div>
+		    	<div class="w3-row w3-right" style="margin-right: 50px;">
+			    	<input type="text" class="w3-badge w3-white" 
+			    		id="txtCharEqpmnt" 
+			    		style="width: 50px; height: 50px; position: absolute; z-index: 1;"
+			    		/>
+				</div>
+					<textarea id="txtarCharEqmnt" 
+						style="width: 100%; height: 526px; z-index: 0;"></textarea>
+	    	</div>
+		</div>
+		
+    </form>
+    
+</div>
+
+</body>
+
+</html>

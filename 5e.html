@@ -1,0 +1,1833 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+    <title>5e Character Sheet</title>
+    <meta charset="UTF-8">
+    
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <link rel="icon" type="image/png" href="d&d.png" />
+    <link rel="stylesheet" type="text/css" href="w3.min.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	
+    <style type="text/css">
+        * {
+            font-variant: small-caps !important;
+        }
+    </style>
+    
+    <script>
+        $(document).ready(function () {
+            $('.SavePanel').hide();
+        });
+        
+    	function Save() {
+	        if (typeof(Storage) !== "undefined") {
+                
+				var inputs, textareas, index;
+				inputs = document.getElementsByTagName('input');
+				textareas = document.getElementsByTagName('textarea');
+				
+				for (index = 0; index < inputs.length; ++index) {
+				    // deal with inputs[index] element.
+				    if ( inputs[index].type == "text" ) {
+					    if ( inputs[index].value != "" ) {
+					    	localStorage.setItem(inputs[index].id, 
+					    		document.getElementById(inputs[index].id).value);
+					    }
+					}
+					
+				    if ( inputs[index].type == "checkbox" ) {
+				   		if ( inputs[index].checked == true ) {
+				   			localStorage.setItem(inputs[index].id, "true" );
+				   		} else {
+				   		
+				   			localStorage.setItem(inputs[index].id, "false" );
+				   		}
+				    }
+				}
+				
+				for (index = 0; index < textareas.length; ++index) {
+				    // deal with textareas[index] element.
+				    if ( textareas[index].value != "" ) {
+					    localStorage.setItem(textareas[index].id, 
+					    	document.getElementById(textareas[index].id).value);
+					}
+				}
+                
+                $('.SavePanel').show();
+
+			} else {
+			    alert("Your browser doesn't support HTML5 Local Storage.");
+			}
+		}
+	</script>
+
+
+    <script>
+    	function Load() {
+	        if (typeof(Storage) !== "undefined") {
+				alert("START LOAD");
+				
+				var inputs, textareas, index;
+				inputs = document.getElementsByTagName('input');
+				textareas = document.getElementsByTagName('textarea');
+				
+				for (index = 0; index < inputs.length; ++index) {
+				   // deal with inputs[index] element.
+				   if ( inputs[index].type == "text" ) {
+					    document.getElementById(inputs[index].id).value = 
+					    	localStorage.getItem(inputs[index].id);
+					}
+				   if ( inputs[index].type == "checkbox" ) {
+				   		if ( localStorage.getItem(inputs[index].id) == "true" ) {
+				   			inputs[index].checked = true;
+				   		} else {
+				   			inputs[index].checked = false;
+				   		}
+				    }
+				}
+				
+				for (index = 0; index < textareas.length; ++index) {
+				    // deal with textareas[index] element.
+				    document.getElementById(textareas[index].id).value = 
+				    	localStorage.getItem(textareas[index].id);
+				}
+				
+				alert("FINISHED LOAD");
+			} else {
+			    alert("Your browser doesn't support HTML5 Local Storage.");
+			}
+		}
+	</script>
+
+    <script>
+    	function Clear() {
+	        if (typeof(Storage) != "undefined") {
+				alert("START CLEAR");
+				
+				var inputs, textareas, index;
+				inputs = document.getElementsByTagName('input');
+				textareas = document.getElementsByTagName('textarea');
+				
+				for (index = 0; index < inputs.length; ++index) {
+				    // deal with inputs[index] element.
+					if ( (inputs[index].type) == "text" || inputs[index].type == "checkbox") {
+					    localStorage.setItem(inputs[index].id, "");
+					}
+				}
+				
+				for (index = 0; index < textareas.length; ++index) {
+				    // deal with inputs[index] element.
+					    localStorage.setItem(inputs[index].id, "");
+				}
+				
+				alert("FINISHED CLEAR");
+				
+				// Apply Erasing
+				Load();
+			} else {
+			    alert("Your browser doesn't support HTML5 Local Storage.");    
+			}
+		}
+	</script>
+
+    <script type="text/javascript">
+        /*** Function to Reset All Cards in the Encounter Tracker ONLY ***/
+        function ResetAll() {
+            //Clear Time Section
+            document.getElementById('cbEncCardTimeHr00').checked = false;
+            document.getElementById('cbEncCardTimeHr01').checked = false;
+            document.getElementById('cbEncCardTimeHr02').checked = false;
+            document.getElementById('cbEncCardTimeHr03').checked = false;
+            document.getElementById('cbEncCardTimeHr04').checked = false;
+            document.getElementById('cbEncCardTimeHr05').checked = false;
+            document.getElementById('cbEncCardTimeHr06').checked = false;
+            document.getElementById('cbEncCardTimeHr07').checked = false;
+            document.getElementById('cbEncCardTimeHr08').checked = false;
+            document.getElementById('cbEncCardTimeHr09').checked = false;
+            document.getElementById('cbEncCardTimeHr10').checked = false;
+            document.getElementById('cbEncCardTimeHr11').checked = false;
+            document.getElementById('cbEncCardTimeHr12').checked = false;
+            document.getElementById('cbEncCardTimeHr13').checked = false;
+            document.getElementById('cbEncCardTimeHr14').checked = false;
+            document.getElementById('cbEncCardTimeHr15').checked = false;
+            document.getElementById('cbEncCardTimeHr16').checked = false;
+            document.getElementById('cbEncCardTimeHr17').checked = false;
+            document.getElementById('cbEncCardTimeHr18').checked = false;
+            document.getElementById('cbEncCardTimeHr19').checked = false;
+            document.getElementById('cbEncCardTimeHr20').checked = false;
+            document.getElementById('cbEncCardTimeHr21').checked = false;
+            document.getElementById('cbEncCardTimeHr22').checked = false;
+            document.getElementById('cbEncCardTimeHr23').checked = false;
+
+            //Clear Character section
+            document.getElementById('txtEncCardChar1Nm').value = '';
+            document.getElementById('txtEncCardChar1Ac').value = '';
+            document.getElementById('txtEncCardChar1Hp').value = '';
+            document.getElementById('bdgEncCardChar1PassPerc').value = '';
+            document.getElementById('cbEncCardChar1Blind').checked = false;
+            document.getElementById('cbEncCardChar1Frigh').checked = false;
+            document.getElementById('cbEncCardChar1Invis').checked = false;
+            document.getElementById('cbEncCardChar1Charm').checked = false;
+            document.getElementById('cbEncCardChar1Grap').checked = false;
+            document.getElementById('cbEncCardChar1Paral').checked = false;
+            document.getElementById('cbEncCardChar1Deaf').checked = false;
+            document.getElementById('cbEncCardChar1Incap').checked = false;
+            document.getElementById('cbEncCardChar1Petr').checked = false;
+            document.getElementById('txtEncCardChar2Nm').value = '';
+            document.getElementById('txtEncCardChar2Ac').value = '';
+            document.getElementById('txtEncCardChar2Hp').value = '';
+            document.getElementById('bdgEncCardChar2PassPerc').value = '';
+            document.getElementById('cbEncCardChar2Blind').checked = false;
+            document.getElementById('cbEncCardChar2Frigh').checked = false;
+            document.getElementById('cbEncCardChar2Invis').checked = false;
+            document.getElementById('cbEncCardChar2Charm').checked = false;
+            document.getElementById('cbEncCardChar2Grap').checked = false;
+            document.getElementById('cbEncCardChar2Paral').checked = false;
+            document.getElementById('cbEncCardChar2Deaf').checked = false;
+            document.getElementById('cbEncCardChar2Incap').checked = false;
+            document.getElementById('cbEncCardChar2Petr').checked = false;
+            document.getElementById('txtEncCardChar3Nm').value = '';
+            document.getElementById('txtEncCardChar3Ac').value = '';
+            document.getElementById('txtEncCardChar3Hp').value = '';
+            document.getElementById('bdgEncCardChar3PassPerc').value = '';
+            document.getElementById('cbEncCardChar3Blind').checked = false;
+            document.getElementById('cbEncCardChar3Frigh').checked = false;
+            document.getElementById('cbEncCardChar3Invis').checked = false;
+            document.getElementById('cbEncCardChar3Charm').checked = false;
+            document.getElementById('cbEncCardChar3Grap').checked = false;
+            document.getElementById('cbEncCardChar3Paral').checked = false;
+            document.getElementById('cbEncCardChar3Deaf').checked = false;
+            document.getElementById('cbEncCardChar3Incap').checked = false;
+            document.getElementById('cbEncCardChar3Petr').checked = false;
+            document.getElementById('txtEncCardChar4Nm').value = '';
+            document.getElementById('txtEncCardChar4Ac').value = '';
+            document.getElementById('txtEncCardChar4Hp').value = '';
+            document.getElementById('bdgEncCardChar4PassPerc').value = '';
+            document.getElementById('cbEncCardChar4Blind').checked = false;
+            document.getElementById('cbEncCardChar4Frigh').checked = false;
+            document.getElementById('cbEncCardChar4Invis').checked = false;
+            document.getElementById('cbEncCardChar4Charm').checked = false;
+            document.getElementById('cbEncCardChar4Grap').checked = false;
+            document.getElementById('cbEncCardChar4Paral').checked = false;
+            document.getElementById('cbEncCardChar4Deaf').checked = false;
+            document.getElementById('cbEncCardChar4Incap').checked = false;
+            document.getElementById('cbEncCardChar4Petr').checked = false;
+            document.getElementById('txtEncCardChar5Nm').value = '';
+            document.getElementById('txtEncCardChar5Ac').value = '';
+            document.getElementById('txtEncCardChar5Hp').value = '';
+            document.getElementById('bdgEncCardChar5PassPerc').value = '';
+            document.getElementById('cbEncCardChar5Blind').checked = false;
+            document.getElementById('cbEncCardChar5Frigh').checked = false;
+            document.getElementById('cbEncCardChar5Invis').checked = false;
+            document.getElementById('cbEncCardChar5Charm').checked = false;
+            document.getElementById('cbEncCardChar5Grap').checked = false;
+            document.getElementById('cbEncCardChar5Paral').checked = false;
+            document.getElementById('cbEncCardChar5Deaf').checked = false;
+            document.getElementById('cbEncCardChar5Incap').checked = false;
+            document.getElementById('cbEncCardChar5Petr').checked = false;
+            document.getElementById('txtEncCardChar6Nm').value = '';
+            document.getElementById('txtEncCardChar6Ac').value = '';
+            document.getElementById('txtEncCardChar6Hp').value = '';
+            document.getElementById('bdgEncCardChar6PassPerc').value = '';
+            document.getElementById('cbEncCardChar6Blind').checked = false;
+            document.getElementById('cbEncCardChar6Frigh').checked = false;
+            document.getElementById('cbEncCardChar6Invis').checked = false;
+            document.getElementById('cbEncCardChar6Charm').checked = false;
+            document.getElementById('cbEncCardChar6Grap').checked = false;
+            document.getElementById('cbEncCardChar6Paral').checked = false;
+            document.getElementById('cbEncCardChar6Deaf').checked = false;
+            document.getElementById('cbEncCardChar6Incap').checked = false;
+            document.getElementById('cbEncCardChar6Petr').checked = false;
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        /*** Function to Reset the Initiative Order in the Encounter Tracker ONLY ***/
+        function ResetInit() {
+            document.getElementById('txtEncCardInit01').value = '';
+            document.getElementById('txtEncCardInit02').value = '';
+            document.getElementById('txtEncCardInit03').value = '';
+            document.getElementById('txtEncCardInit04').value = '';
+            document.getElementById('txtEncCardInit05').value = '';
+            document.getElementById('txtEncCardInit06').value = '';
+            document.getElementById('txtEncCardInit07').value = '';
+            document.getElementById('txtEncCardInit08').value = '';
+            document.getElementById('txtEncCardInit09').value = '';
+            document.getElementById('txtEncCardInit10').value = '';
+            document.getElementById('txtEncCardInit11').value = '';
+            document.getElementById('txtEncCardInit12').value = '';
+            document.getElementById('txtEncCardInit13').value = '';
+            document.getElementById('txtEncCardInit14').value = '';
+            document.getElementById('txtEncCardInit15').value = '';
+            document.getElementById('txtEncCardInit16').value = '';
+            document.getElementById('txtEncCardInit17').value = '';
+            document.getElementById('txtEncCardInit18').value = '';
+            document.getElementById('txtEncCardInit19').value = '';
+            document.getElementById('txtEncCardInit20').value = '';
+            document.getElementById('txtEncCardInit21').value = '';
+            document.getElementById('txtEncCardInit22').value = '';
+            document.getElementById('txtEncCardInit23').value = '';
+            document.getElementById('txtEncCardInit24').value = '';
+            document.getElementById('txtEncCardInit25').value = '';
+            document.getElementById('txtEncCardInit26').value = '';
+            document.getElementById('txtEncCardInit27').value = '';
+            document.getElementById('txtEncCardInit28').value = '';
+            document.getElementById('txtEncCardInit29').value = '';
+            document.getElementById('txtEncCardInit30').value = '';
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        /*** Function to Reset the Monster Cards in the Encounter Tracker ONLY ***/
+        function ResetMons() {
+            document.getElementById('txtEncCardMon1Ac').value = '';
+            document.getElementById('txtEncCardMon1Hp').value = '';
+            document.getElementById('txtEncCardMon1Wpn1').value = '';
+            document.getElementById('txtEncCardMon1AtkBns1').value = '';
+            document.getElementById('txtEndCardMon1DmgTyp1').value = '';
+            document.getElementById('txtEncCardMon1Wpn2').value = '';
+            document.getElementById('txtEncCardMon1AtkBns2').value = '';
+            document.getElementById('txtEndCardMon1DmgTyp2').value = '';
+            document.getElementById('txtEncCardMon1Wpn3').value = '';
+            document.getElementById('txtEncCardMon1AtkBns3').value = '';
+            document.getElementById('txtEndCardMon1DmgTyp3').value = '';
+            document.getElementById('txtEncCardMon1Wpn4').value = '';
+            document.getElementById('txtEncCardMon1AtkBns4').value = '';
+            document.getElementById('txtEndCardMon1DmgTyp4').value = '';
+            document.getElementById('txtEncCardMon1Wpn5').value = '';
+            document.getElementById('txtEncCardMon1AtkBns5').value = '';
+            document.getElementById('txtEndCardMon1DmgTyp5').value = '';
+            document.getElementById('txtEncCardMon2Ac').value = '';
+            document.getElementById('txtEncCardMon2Hp').value = '';
+            document.getElementById('txtEncCardMon2Wpn1').value = '';
+            document.getElementById('txtEncCardMon2AtkBns1').value = '';
+            document.getElementById('txtEndCardMon2DmgTyp1').value = '';
+            document.getElementById('txtEncCardMon2Wpn2').value = '';
+            document.getElementById('txtEncCardMon2AtkBns2').value = '';
+            document.getElementById('txtEndCardMon2DmgTyp2').value = '';
+            document.getElementById('txtEncCardMon2Wpn3').value = '';
+            document.getElementById('txtEncCardMon2AtkBns3').value = '';
+            document.getElementById('txtEndCardMon2DmgTyp3').value = '';
+            document.getElementById('txtEncCardMon2Wpn4').value = '';
+            document.getElementById('txtEncCardMon2AtkBns4').value = '';
+            document.getElementById('txtEndCardMon2DmgTyp4').value = '';
+            document.getElementById('txtEncCardMon2Wpn5').value = '';
+            document.getElementById('txtEncCardMon2AtkBns5').value = '';
+            document.getElementById('txtEndCardMon2DmgTyp5').value = '';
+            document.getElementById('txtEncCardMon3Ac').value = '';
+            document.getElementById('txtEncCardMon3Hp').value = '';
+            document.getElementById('txtEncCardMon3Wpn1').value = '';
+            document.getElementById('txtEncCardMon3AtkBns1').value = '';
+            document.getElementById('txtEndCardMon3DmgTyp1').value = '';
+            document.getElementById('txtEncCardMon3Wpn2').value = '';
+            document.getElementById('txtEncCardMon3AtkBns2').value = '';
+            document.getElementById('txtEndCardMon3DmgTyp2').value = '';
+            document.getElementById('txtEncCardMon3Wpn3').value = '';
+            document.getElementById('txtEncCardMon3AtkBns3').value = '';
+            document.getElementById('txtEndCardMon3DmgTyp3').value = '';
+            document.getElementById('txtEncCardMon3Wpn4').value = '';
+            document.getElementById('txtEncCardMon3AtkBns4').value = '';
+            document.getElementById('txtEndCardMon3DmgTyp4').value = '';
+            document.getElementById('txtEncCardMon3Wpn5').value = '';
+            document.getElementById('txtEncCardMon3AtkBns5').value = '';
+            document.getElementById('txtEndCardMon3DmgTyp5').value = '';
+        }
+    </script>
+    
+    <script>
+        /*** Sets the Tool Type that the user wishes to draw ***/
+        function canvas_SetToolType(type) {
+            if (type === undefined) {
+                type = 'Line';
+            }
+
+            localStorage.setItem('canvas_ToolType', type);
+        }
+
+
+        function getPosX(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+            var cnv_dim = cnv.getBoundingClientRect();
+            var cli_x = e.clientX;
+            var cnv_lft = cnv_dim.left;
+            var cnv_rght = cnv_dim.right;
+            var cnv_wdth = cnv_dim.width;
+            var real_x = (cli_x - cnv_lft) / (cnv_rght - cnv_lft) * cnv_wdth;
+            var offset_x = 5;
+            var return_x = real_x - offset_x;
+
+            return return_x;
+        }
+
+        function getPosY(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+            var cnv_dim = cnv.getBoundingClientRect();
+            var cli_y = e.clientY;
+            var cnv_top = cnv_dim.top;
+            var cnv_btm = cnv_dim.bottom;
+            var cnv_hgt = cnv_dim.height;
+            var real_y = (cli_y - cnv_top) / (cnv_btm - cnv_top) * cnv_hgt;
+            var offset_y = 5;
+            var return_y = real_y - offset_y;
+
+            return return_y;
+        }
+
+        function canvas_Draw(e) {
+            var type = localStorage.getItem('canvas_ToolType');
+
+            if (type == 'Erase') {
+                canvas_Erase(e);
+            }
+            else if (type == 'Room') {
+                canvas_DrawRoom(e);
+            }
+            else if (type == 'Line') {
+                canvas_DrawLine(e);
+            }
+            else if (type == 'Corridor') {
+                canvas_DrawCorridor(e);
+            }
+            else if (type == 'Door') {
+                canvas_DrawDoor(e);
+            }
+            else if (type == 'Circle') {
+                canvas_DrawCircle(e);
+            }
+            else if (type == 'YellowStar') {
+                canvas_DrawYellowStar(e);
+            }
+            else if (type == 'PurpleStar') {
+                canvas_DrawPurpleStar(e);
+            }
+            else if (type == 'TealStar') {
+                canvas_DrawTealStar(e);
+            }
+            else if (type == 'Player1') {
+                canvas_DrawPlayer1(e);
+            }
+            else if (type == 'Player2') {
+                canvas_DrawPlayer2(e);
+            }
+            else if (type == 'Player3') {
+                canvas_DrawPlayer3(e);
+            }
+            else if (type == 'Player4') {
+                canvas_DrawPlayer4(e);
+            }
+            else if (type == 'Player5') {
+                canvas_DrawPlayer5(e);
+            }
+            else if (type == 'Player6') {
+                canvas_DrawPlayer6(e);
+            }
+            else if (type == 'Encounter') {
+                canvas_DrawEncounter(e);
+            }
+            
+        }
+
+        // This draws a room according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawRoom(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "#000000";
+            cntxt.fillRect(x, y, 40, 30); //fill area
+            cntxt.fillStyle = "#FFFFFF";
+            cntxt.fillRect(x + 1, y + 1, 38, 28); //border
+        }
+
+        function LineStream(e, mouse, old_x, old_y) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            if (mouse == 'move') {
+                cntxt.lineTo(x, y);
+                cntxt.closePath();
+                cntxt.stroke();
+            }
+
+            if (mouse == 'down') {
+                cntxt.beginPath();
+                cntxt.moveTo(x, y);
+                cntxt.lineTo(x, y);
+            }
+
+            if (mouse == 'up') {
+                cntxt.moveTo(x, y);
+                cntxt.closePath();
+            }
+
+            if (mouse == 'out') {
+                cntxt.moveTo(x, y);
+                cntxt.closePath();
+            }
+
+        }
+
+        // This draws a Line according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawLine(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.style = "#000000";
+
+            cnv.addEventListener("mousemove",   LineStream(e, 'move',   x, y), false);
+            cnv.addEventListener("mousedown",   LineStream(e, 'down',   x, y), false);
+            cnv.addEventListener("mouseup",     LineStream(e, 'up',     x, y), false);
+            cnv.addEventListener("mouseout",    LineStream(e, 'out',    x, y), false);
+
+        }
+
+        // This draws a Corridor according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawCorridor(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "#000000";
+            cntxt.fillRect(x, y, 15, 15); //fill area
+            cntxt.fillStyle = "#00FF00";
+            cntxt.fillRect(x + 1, y + 1, 13, 13); //border
+        }
+
+        // This draws a Door according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawDoor(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "#000000";
+            cntxt.fillRect(x, y, 15, 7); //fill area
+            cntxt.fillStyle = "#bbbbbb";
+            cntxt.fillRect(x + 1, y + 1, 13, 5); //border
+        }
+
+        // This draws a Circle according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawCircle(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "#FFFFFF";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 15, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.fillStyle = '#0000FF';
+            cntxt.beginPath();
+            cntxt.arc(x, y, 12, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+        }
+
+        // This draws a Gold Star according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawYellowStar(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            // begin custom shape
+            cntxt.beginPath();
+            cntxt.moveTo(x + 2.5, y + 12.5);        //7 o'clock
+            cntxt.lineTo(x + 6.25, y + 2.5);      //12 o'clock
+            cntxt.lineTo(x + 8.75, y + 12.5);     //5 o'clock
+            cntxt.lineTo(x, y + 6.25);            //9 o'clock
+            cntxt.lineTo(x + 12.5, y + 6.25);     //3 o'clock
+            
+            // complete custom shape
+            cntxt.closePath();
+            cntxt.lineWidth = 5;
+            cntxt.fillStyle = 'yellow';
+            cntxt.fill();
+            cntxt.strokeStyle = 'yellow';
+            cntxt.stroke();
+        }
+
+        // This draws a Purple Star according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawPurpleStar(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            // begin custom shape
+            cntxt.beginPath();
+            cntxt.moveTo(x + 2.5, y + 12.5);        //7 o'clock
+            cntxt.lineTo(x + 6.25, y + 2.5);      //12 o'clock
+            cntxt.lineTo(x + 8.75, y + 12.5);     //5 o'clock
+            cntxt.lineTo(x, y + 6.25);            //9 o'clock
+            cntxt.lineTo(x + 12.5, y + 6.25);     //3 o'clock
+
+            // complete custom shape
+            cntxt.closePath();
+            cntxt.lineWidth = 5;
+            cntxt.fillStyle = 'purple';
+            cntxt.fill();
+            cntxt.strokeStyle = 'purple';
+            cntxt.stroke();
+        }
+
+        // This draws a Teal Star according to the Grid Size used, and scales against the dimensions of the Canvas Rectangle.
+        function canvas_DrawTealStar(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            // begin custom shape
+            cntxt.beginPath();
+            cntxt.moveTo(x + 2.5, y + 12.5);        //7 o'clock
+            cntxt.lineTo(x + 6.25, y + 2.5);      //12 o'clock
+            cntxt.lineTo(x + 8.75, y + 12.5);     //5 o'clock
+            cntxt.lineTo(x, y + 6.25);            //9 o'clock
+            cntxt.lineTo(x + 12.5, y + 6.25);     //3 o'clock
+
+            // complete custom shape
+            cntxt.closePath();
+            cntxt.lineWidth = 5;
+            cntxt.fillStyle = 'teal';
+            cntxt.fill();
+            cntxt.strokeStyle = 'teal';
+            cntxt.stroke();
+        }
+
+        // This draws a player 1 icon
+        function canvas_DrawPlayer1(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+           
+            cntxt.fillStyle = "gold";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 10, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "black";
+            cntxt.beginPath();
+            cntxt.fillText("P1", x - 8, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+            
+        }
+
+        // This draws a player 2 icon
+        function canvas_DrawPlayer2(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "gold";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 10, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "black";
+            cntxt.beginPath();
+            cntxt.fillText("P2", x - 8, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+
+        }
+
+        // This draws a player 3 icon
+        function canvas_DrawPlayer3(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "gold";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 10, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "black";
+            cntxt.beginPath();
+            cntxt.fillText("P3", x - 8, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+
+        }
+
+        // This draws a player 4 icon
+        function canvas_DrawPlayer4(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "gold";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 10, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "black";
+            cntxt.beginPath();
+            cntxt.fillText("P4", x - 8, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+
+        }
+
+        // This draws a player 5 icon
+        function canvas_DrawPlayer5(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "gold";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 10, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "black";
+            cntxt.beginPath();
+            cntxt.fillText("P5", x - 8, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+
+        }
+
+        // This draws a player 6 icon
+        function canvas_DrawPlayer6(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+
+            cntxt.fillStyle = "gold";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 10, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "black";
+            cntxt.beginPath();
+            cntxt.fillText("P6", x - 8, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+
+        }
+
+
+        // This draws an Encounter icon
+        function canvas_DrawEncounter(e) {
+            var cnv = document.getElementById('cnvMap');
+            var cntxt = cnv.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+            
+            cntxt.fillStyle = "#660000";
+            cntxt.beginPath();
+            cntxt.arc(x, y, 14, 0, 2 * Math.PI);
+            cntxt.stroke();
+            cntxt.fill();
+
+            cntxt.font = "12px Arial";
+            cntxt.fillStyle = "red";
+            cntxt.beginPath();
+            cntxt.fillText("ENC", x - 11, y + 5);
+            cntxt.stroke();
+            cntxt.fill();
+        }
+
+        //ERASE
+        function canvas_Erase(e) {
+            var canvas = document.getElementById('cnvMap');
+            var cntxt = canvas.getContext("2d");
+
+            var x = getPosX(e);
+            var y = getPosY(e);
+            
+            cntxt.clearRect(x, y, 20, 20);
+        }
+
+        function canvas_Clear() {
+            var canvas = document.getElementById('cnvMap');
+            var cntxt = canvas.getContext("2d");
+
+            cntxt.clearRect(0, 0, 4000, 4000);
+        }
+
+        function canvas_getCoord(e) {
+            var x = e.clientX;
+            var y = e.clientY;
+            document.getElementById("divCoordsDisplay").innerHTML = "Coordinates: (" + x + "," + y + ")";
+        }
+
+        function canvas_clearCoord() {
+            cntxt.moveTo(0, 0);
+            cntxt.closePath();
+            cntxt.stroke();
+            document.getElementById("divCoordsDisplay").innerHTML = "&nbsp;";
+        }
+
+    </script>
+</head>
+
+<body style="background-color: antiquewhite;">
+
+    <div class="w3-container w3-black w3-border-bottom frozen">
+        <div class="w3-dropdown-hover">
+            <button class="w3-button w3-black">
+                <div class="bars1">&nbsp;</div>
+                <div class="bars2">&nbsp;</div>
+                <div class="bars3">&nbsp;</div>
+            </button>
+            <div class="w3-dropdown-content w3-bar-block w3-border w3-animate-opacity">
+                <a href="home.html" class="w3-bar-item w3-button">Home</a>
+                <a href="5e.html" class="w3-bar-item w3-button w3-light-grey">5e D&D Character Sheet</a>
+                <a href="da.html" class="w3-bar-item w3-button">Dragon Age Character Sheet</a>
+                <a href="cv.html" class="w3-bar-item w3-button w3-light-grey">CV</a>
+                <a href="dice.html" class="w3-bar-item w3-button">Dice</a>
+                <a href="gallery.html" class="w3-bar-item w3-button w3-light-grey">Gallery</a>
+                <a href="hobbies.html" class="w3-bar-item w3-button">Hobbies</a>
+            </div>
+        </div>
+    </div>
+    
+    <div  class="w3-container w3-black">
+        <div class="w3-row">
+        	<h3 class="">5e Character Sheet</h3>
+           	<input class="w3-teal w3-animate-opacity" id="btnSave" type="button" 
+        		value="Save" onclick="Save();" />
+           	<input class="w3-amber w3-animate-opacity" id="btnLoad" type="button" 
+        		value="Load" onclick="Load();" />
+           	<input class="w3-red w3-animate-opacity" id="btnClear" type="button" 
+        		value="Clear" onclick="Clear();" />
+    	</div>
+    </div>
+
+<div class="scrollable" style="margin-top: 5px; width: 100%;">
+
+    <!-- PANELS -->
+    <div class="SavePanel w3-panel w3-green w3-display-container">
+        <span onclick="this.parentElement.style.display='none'" 
+              class="w3-button w3-green w3-large w3-display-topright">×</span>
+        <h3>Fields Saved.</h3>
+        <p>You can re-save fields for the next time you load the page, 
+           or you can click on the clear button to close your selection. .</p>
+    </div>
+
+    <form id="form1">
+
+    <!-- CHARACTER SHEET OVERVIEW -->
+    <div class="w3-animate-opacity" style="width: 1000px; margin: 0 5px 0 5px; background-image: url('sheet_background.jpg');">
+        <div class="w3-row">
+            <br />
+            <input class="w3-center" style="margin-left: 1px; border-bottom: 1px solid #741919; border-top: 0px none; border-right: 0px none; border-left: 0px none; width: 30%; background: transparent;" />
+            <input class="w3-center" style="margin-left: 1px; border-bottom: 1px solid #741919; border-top: 0px none; border-right: 0px none; border-left: 0px none; width: 30%; background: transparent;" />
+            <input class="w3-center" style="margin-left: 1px; border-bottom: 1px solid #741919; border-top: 0px none; border-right: 0px none; border-left: 0px none; width: 30%; background: transparent;" />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+    </div>
+
+
+    <!-- QUICK REFERENCE CARDS -->
+
+    <!-- MONSTER CARD -->
+    <div class="w3-row">
+
+        <div class="sixth">
+            &nbsp;
+        </div>
+
+        <div class="w3-twothird w3-card-4 w3-white w3-round-xlarge">
+
+            <div>
+                &nbsp;
+            </div>
+
+            <!-- Header Rows -->
+            <div class="w3-row w3-black">
+                <input type="text" id="txtMonCardHeaderMonNm" class="w3-input w3-threequarter w3-brown w3-border w3-large " 
+                    style="height:30px;" value="Monster Name..." />
+                <input type="text" id="txtMonCardHeaderCr" class="w3-input w3-quarter w3-brown w3-border" 
+                    style="height:30px;" value="CR X/Y" />
+            </div>
+            <div class="w3-row w3-black">
+                <input type="text" id="txtMonCardHeaderSizeSub" class="w3-input w3-twothird w3-brown w3-border" 
+                    style="height:30px;" value="Size Subgroup" />
+                <input type="text" id="txtMonCardHeaderBlnk" class="w3-input w3-third w3-brown w3-border" 
+                    style="height:30px;" />
+            </div>
+
+            <div style="height: 25px;">
+                &nbsp;
+            </div>
+
+            <!-- Left Side, Minor Stats -->
+            <div class="sixth">
+                <input id="txtMonCardAc" type="text" class="w3-input w3-border w3-brown"  style="height: 30px;" value="AC X" />
+                <input id="txtMonCardAcSub" type="text" class="w3-input w3-border w3-white"  style="height: 15px;" />
+                <input id="txtMonCardFort" type="text" class="w3-input w3-border w3-brown"  style="height: 30px;" value="Fort +X" />
+                <input id="txtMonCardFortSub" type="text" class="w3-input w3-border w3-white"  style="height: 15px;" />
+                <input id="txtMonCardRef" type="text" class="w3-input w3-border w3-brown"  style="height: 30px;" value="Ref +X" />
+                <input id="txtMonCardRefSub" type="text" class="w3-input w3-border w3-white"  style="height: 15px;" />
+                <input id="txtMonCardWill" type="text" class="w3-input w3-border w3-brown"  style="height: 30px;" value="Will +X" />
+                <input id="txtMonCardWillSub" type="text" class="w3-input w3-border w3-white"  style="height: 15px;" />
+                <input id="txtMonCardHp" type="text" class="w3-input w3-border w3-purple" style="height: 30px;" value="HP X" />
+                <input id="txtMonCardHpSub" type="text" class="w3-input w3-border w3-white"  style="height: 15px;" value="HD X+Y" />
+                <input id="txtMonCardSpace" type="text" class="w3-input w3-border w3-white" style="height: 20px;" value="Space: X ft." />
+                <input id="txtMonCardReach" type="text" class="w3-input w3-border w3-white" style="height: 20px;" value="Reach: X ft." />
+            </div>
+
+            <!-- Bestiary/Behavior/Description Info -->
+            <div class="fivesixth">
+                <div class="w3-row">
+                    <textarea id="txtarMonCardInit" class="w3-input w3-third w3-padding w3-border medium-brown" style="border-width: 2px">INIT: +X</textarea>
+                    <textarea id="txtarMonCardSpd" class="w3-input w3-third w3-padding w3-border medium-brown" style="border-width: 2px">SPD: 
+Climb X Ft.</textarea>
+                    <textarea id="txtarMonCardSkills" class="w3-input w3-third w3-padding w3-border medium-brown" style="border-width: 2px;">Skills:</textarea>
+                </div>
+                <div class="w3-row">
+                    <label id="lblMonCardSenses" class="w3-quarter">Senses: </label>
+                    <input id="txtMonCardSenses" type="text" class="w3-threequarter w3-border-bottom w3-left" />
+                </div>
+                <div class="w3-row">
+                    <input id="txtMonCardAtk1Name" type="text" class="w3-border-bottom w3-padding w3-quarter w3-grey" style="border: none; height: 25px;" value="Attack 1"/>
+                    <input id="txtMonCardAtk1Text" type="text" class="w3-border-bottom w3-padding w3-threequarter" style="border: none; height: 25px;" />
+
+                    <input id="txtMonCardAtk2Name" type="text" class="w3-border-bottom w3-padding w3-quarter w3-grey" style="border: none; height: 25px;" value="Attack 2" />
+                    <input id="txtMonCardAtk2Text" type="text" class="w3-border-bottom w3-padding w3-threequarter" style="border: none; height: 25px;" />
+                </div>
+                <div class="w3-row">
+                    <input type="text" id="txtMonCardBaseAtk" class="w3-border-bottom w3-padding w3-quarter" style="margin-top: 20px; height: 30px; width: 100%;" value="Base Atk: +X"/>
+                </div>
+                <div class="w3-row">
+                    <input type="text" id="txtMonCardSpecialAttack1Name" class="w3-border-bottom w3-padding w3-grey" style="height: 25px; width: 35%;" value="Special Attack 1" />
+                    <input type="text" id="txtMonCardSpecialAttack1Text" class="w3-border-bottom w3-padding" style="height: 25px; width: 64%;" />
+
+                    <input type="text" id="txtMonCardSpecialAttack2Name" class="w3-border-bottom w3-padding w3-grey" style="height: 25px; width: 35%;" value="Special Attack 2" />
+                    <input type="text" id="txtMonCardSpecialAttack2Text" class="w3-border-bottom w3-padding" style="height: 25px; width: 64%;" />
+                </div>
+                <div class="w3-row">
+                    <textarea id="txtarMonCardOthrAbils" class="w3-border-bottom w3-padding w3-quarter" style="height: 100px; width: 100%;">Other Abilities: </textarea>
+                </div>
+            </div>
+
+            <!-- Major Stats / Bottom Row -->
+            <div class="w3-row">
+                <input type="text" id="txtMonCardMajStatStr" class="w3-border medium-brown sixth w3-border-black" value="STR XX" />
+                <input type="text" id="txtMonCardMajStatDex" class="w3-border medium-brown sixth w3-border-black" value="DEX XX" />
+                <input type="text" id="txtMonCardMajStatCon" class="w3-border medium-brown sixth w3-border-black" value="CON XX" />
+                <input type="text" id="txtMonCardMajStatInt" class="w3-border medium-brown sixth w3-border-black" value="INT XX" />
+                <input type="text" id="txtMonCardMajStatWis" class="w3-border medium-brown sixth w3-border-black" value="WIS XX" />
+                <input type="text" id="txtMonCardMajStatCha" class="w3-border medium-brown sixth w3-border-black" value="CHA XX" />
+            </div>
+
+            <div class="w3-center w3-margin">
+                &nbsp;
+            </div>
+
+        </div>
+
+        <div class="sixth">
+            &nbsp;
+        </div>
+
+    </div>
+
+    <!-- DM Party Scorecard -->
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+        <div class="w3-card-4 w3-white" style="margin-left: 5px; margin-right: 5px;">
+            <!-- TIME TRACKER -->
+            <div class="w3-row">
+                <label class="fifth">MIDNIGHT</label>
+                <label class="fifth">DAYBREAK</label>
+                <label class="fifth">NOON</label>
+                <label class="fifth">SUNSET</label>
+                <label class="fifth">FOLLOWING DAY -></label>
+            </div>
+            <div class="w3-row">
+                <label class="twentyfourth ">12&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">1&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">2&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">3&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">4&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">5&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">6&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">7&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">8&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">9&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">10&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">11&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">12&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">1&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">2&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">3&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">4&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">5&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">6&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">7&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">8&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">9&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">10&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label class="twentyfourth ">11&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <div class="w3-row">
+                <label class="twentyfourth"><input id="cbEncCardTimeHr00" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr01" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr02" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr03" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr04" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr05" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr06" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr07" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr08" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr09" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr10" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr11" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr12" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr13" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr14" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr15" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr16" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr17" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr18" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr19" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr20" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr21" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr22" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>
+                <label class="twentyfourth"><input id="cbEncCardTimeHr23" type="checkbox" />&middot;&bull;&middot;&nbsp;</label>                
+            </div>
+            
+            <input class="w3-btn w3-red w3-round-xlarge" id="btnResetAll" type="button"
+                   style="border-style: double; font-size: 8px; padding: 0 0 0 0; font-size: 14px;
+                          width: 100px; height: 25px;"
+                   value="Reset All" onclick="ResetAll();" />
+
+            <!-- PLAYER SUMMARY -->
+            <div class="w3-white">
+
+                <div class="w3-container fivesixth w3-white">
+                    <!-- PLAYER 1 -->
+                    <div class="w3-row w3-grey"
+                         style="margin-top: 10px; height: 100%; border-style: double; border-color: #ddd;
+                            border-width: 4px;">
+                        <div class="w3-row">
+                            <div class="w3-twothird">
+                                <div class="w3-row">
+                                    <input type="text" id="txtEncCardChar1Nm" class="w3-center"
+                                           style="margin: 5px 0 0 5px; border-style: double; height: 40px; width: 100px;" />
+
+                                    <input type="text" id="txtEncCardChar1Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                            border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                            border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+
+                                    <input type="text" id="txtEncCardChar1Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                    &nbsp;
+                                    <input type="text" id="bdgEncCardChar1PassPerc" class="w3-badge w3-center w3-white"
+                                           style="border-style: double; width: 35px; height: 35px; margin-right: 0; padding-right: 0;" />
+                                    <label class="w3-white w3-round w3-small "
+                                           style="border-style: double; width: 50px; height: 150px; margin-left: 0; padding: 5px 5px 5px 5px;">
+                                        Passive Perception
+                                    </label>
+                                </div>
+                                <div class="w3-row">
+                                    <label class="" style="margin-left: 30px;">Player 1</label>
+                                    <label class="" style="margin-left: 40px;">AC</label>
+                                    <label class="" style="margin-left: 40px;">HP</label>
+                                </div>
+
+                            </div>
+
+                            <div class="w3-third w3-container">
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Blind" type="checkbox" />Blinded
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Frigh" type="checkbox" />Fright.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Invis" type="checkbox" />Invisible
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Charm" type="checkbox" />Charmed
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Grap" type="checkbox" />Grappled
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Paral" type="checkbox" />Paraly.
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Deaf" type="checkbox" />Deafened
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Incap" type="checkbox" />Incapac.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar1Petr" type="checkbox" />Petrified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAYER 2 -->
+                    <div class="w3-row w3-grey"
+                         style="margin-top: 10px; height: 100%; border-style: double; border-color: #ddd;
+                            border-width: 4px;">
+                        <div class="w3-row">
+                            <div class="w3-twothird">
+                                <div class="w3-row">
+                                    <input type="text" id="txtEncCardChar2Nm" class="w3-center"
+                                           style="margin: 5px 0 0 5px; border-style: double; height: 40px; width: 100px;" />
+
+                                    <input type="text" id="txtEncCardChar2Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                            border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                            border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+
+                                    <input type="text" id="txtEncCardChar2Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                    &nbsp;
+                                    <input type="text" id="bdgEncCardChar2PassPerc" class="w3-badge w3-center w3-white"
+                                           style="border-style: double; width: 35px; height: 35px; margin-right: 0; padding-right: 0;" />
+                                    <label class="w3-white w3-round w3-small "
+                                           style="border-style: double; width: 50px; height: 150px; margin-left: 0; padding: 5px 5px 5px 5px;">
+                                        Passive Perception
+                                    </label>
+                                </div>
+                                <div class="w3-row">
+                                    <label class="" style="margin-left: 30px;">Player 2</label>
+                                    <label class="" style="margin-left: 40px;">AC</label>
+                                    <label class="" style="margin-left: 40px;">HP</label>
+                                </div>
+
+                            </div>
+
+                            <div class="w3-third w3-container">
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Blind" type="checkbox" />Blinded
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Frigh" type="checkbox" />Fright.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Invis" type="checkbox" />Invisible
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Charm" type="checkbox" />Charmed
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Grap" type="checkbox" />Grappled
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Paral" type="checkbox" />Paraly.
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Deaf" type="checkbox" />Deafened
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Incap" type="checkbox" />Incapac.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar2Petr" type="checkbox" />Petrified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAYER 3 -->
+                    <div class="w3-row w3-grey"
+                         style="margin-top: 10px; height: 100%; border-style: double; border-color: #ddd;
+                            border-width: 4px;">
+                        <div class="w3-row">
+                            <div class="w3-twothird">
+                                <div class="w3-row">
+                                    <input type="text" id="txtEncCardChar3Nm" class="w3-center"
+                                           style="margin: 5px 0 0 5px; border-style: double; height: 40px; width: 100px;" />
+
+                                    <input type="text" id="txtEncCardChar3Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                            border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                            border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+
+                                    <input type="text" id="txtEncCardChar3Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                    &nbsp;
+                                    <input type="text" id="bdgEncCardChar3PassPerc" class="w3-badge w3-center w3-white"
+                                           style="border-style: double; width: 35px; height: 35px; margin-right: 0; padding-right: 0;" />
+                                    <label class="w3-white w3-round w3-small "
+                                           style="border-style: double; width: 50px; height: 150px; margin-left: 0; padding: 5px 5px 5px 5px;">
+                                        Passive Perception
+                                    </label>
+                                </div>
+                                <div class="w3-row">
+                                    <label class="" style="margin-left: 30px;">Player 3</label>
+                                    <label class="" style="margin-left: 40px;">AC</label>
+                                    <label class="" style="margin-left: 40px;">HP</label>
+                                </div>
+
+                            </div>
+
+                            <div class="w3-third w3-container">
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Blind" type="checkbox" />Blinded
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Frigh" type="checkbox" />Fright.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Invis" type="checkbox" />Invisible
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Charm" type="checkbox" />Charmed
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Grap" type="checkbox" />Grappled
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Paral" type="checkbox" />Paraly.
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Deaf" type="checkbox" />Deafened
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Incap" type="checkbox" />Incapac.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar3Petr" type="checkbox" />Petrified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAYER 4 -->
+                    <div class="w3-row w3-grey"
+                         style="margin-top: 10px; height: 100%; border-style: double; border-color: #ddd;
+                            border-width: 4px;">
+                        <div class="w3-row">
+                            <div class="w3-twothird">
+                                <div class="w3-row">
+                                    <input type="text" id="txtEncCardChar4Nm" class="w3-center"
+                                           style="margin: 5px 0 0 5px; border-style: double; height: 40px; width: 100px;" />
+
+                                    <input type="text" id="txtEncCardChar4Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                            border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                            border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+
+                                    <input type="text" id="txtEncCardChar4Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                    &nbsp;
+                                    <input type="text" id="bdgEncCardChar4PassPerc" class="w3-badge w3-center w3-white"
+                                           style="border-style: double; width: 35px; height: 35px; margin-right: 0; padding-right: 0;" />
+                                    <label class="w3-white w3-round w3-small "
+                                           style="border-style: double; width: 50px; height: 150px; margin-left: 0; padding: 5px 5px 5px 5px;">
+                                        Passive Perception
+                                    </label>
+                                </div>
+                                <div class="w3-row">
+                                    <label class="" style="margin-left: 30px;">Player 4</label>
+                                    <label class="" style="margin-left: 40px;">AC</label>
+                                    <label class="" style="margin-left: 40px;">HP</label>
+                                </div>
+
+                            </div>
+
+                            <div class="w3-third w3-container">
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Blind" type="checkbox" />Blinded
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Frigh" type="checkbox" />Fright.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Invis" type="checkbox" />Invisible
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Charm" type="checkbox" />Charmed
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Grap" type="checkbox" />Grappled
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Paral" type="checkbox" />Paraly.
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Deaf" type="checkbox" />Deafened
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Incap" type="checkbox" />Incapac.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar4Petr" type="checkbox" />Petrified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAYER 5 -->
+                    <div class="w3-row w3-grey"
+                         style="margin-top: 10px; height: 100%; border-style: double; border-color: #ddd;
+                            border-width: 4px;">
+                        <div class="w3-row">
+                            <div class="w3-twothird">
+                                <div class="w3-row" style="width: 100%">
+                                    <input type="text" id="txtEncCardChar5Nm" class="w3-center"
+                                           style="margin: 5px 0 0 5px; border-style: double; height: 40px; width: 100px;" />
+
+                                    <input type="text" id="txtEncCardChar5Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                            border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                            border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+
+                                    <input type="text" id="txtEncCardChar5Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                    &nbsp;
+                                    <input type="text" id="bdgEncCardChar5PassPerc" class="w3-badge w3-center w3-white"
+                                           style="border-style: double; width: 35px; height: 35px; margin-right: 0; padding-right: 0;" />
+                                    <label class="w3-white w3-round w3-small "
+                                           style="border-style: double; width: 50px; height: 150px; margin-left: 0; padding: 5px 5px 5px 5px;">
+                                        Passive Perception
+                                    </label>
+                                </div>
+                                <div class="w3-row" style="width: 100%">
+                                    <label class="" style="margin-left: 30px;">Player 5</label>
+                                    <label class="" style="margin-left: 40px;">AC</label>
+                                    <label class="" style="margin-left: 40px;">HP</label>
+                                </div>
+
+                            </div>
+
+                            <div class="w3-third w3-container">
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Blind" type="checkbox" />Blinded
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Frigh" type="checkbox" />Fright.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Invis" type="checkbox" />Invisible
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Charm" type="checkbox" />Charmed
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Grap" type="checkbox" />Grappled
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Paral" type="checkbox" />Paraly.
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Deaf" type="checkbox" />Deafened
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Incap" type="checkbox" />Incapac.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar5Petr" type="checkbox" />Petrified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAYER 6 -->
+                    <div class="w3-row w3-grey"
+                         style="margin-top: 10px; height: 100%; border-style: double; border-color: #ddd;
+                            border-width: 4px;">
+                        <div class="w3-row">
+                            <div class="w3-twothird">
+                                <div class="w3-row">
+                                    <input type="text" id="txtEncCardChar6Nm" class="w3-center"
+                                           style="margin: 5px 0 0 5px; border-style: double; height: 40px; width: 100px;" />
+
+                                    <input type="text" id="txtEncCardChar6Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                            border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                            border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+
+                                    <input type="text" id="txtEncCardChar6Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                    &nbsp;
+                                    <input type="text" id="bdgEncCardChar6PassPerc" class="w3-badge w3-center w3-white"
+                                           style="border-style: double; width: 35px; height: 35px; margin-right: 0; padding-right: 0;" />
+                                    <label class="w3-white w3-round w3-small "
+                                           style="border-style: double; width: 50px; height: 150px; margin-left: 0; padding: 5px 5px 5px 5px;">
+                                        Passive Perception
+                                    </label>
+                                </div>
+                                <div class="w3-row">
+                                    <label class="" style="margin-left: 30px;">Player 6</label>
+                                    <label class="" style="margin-left: 40px;">AC</label>
+                                    <label class="" style="margin-left: 40px;">HP</label>
+                                </div>
+
+                            </div>
+
+                            <div class="w3-third w3-container">
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Blind" type="checkbox" />Blinded
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Frigh" type="checkbox" />Fright.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Invis" type="checkbox" />Invisible
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Charm" type="checkbox" />Charmed
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Grap" type="checkbox" />Grappled
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Paral" type="checkbox" />Paraly.
+                                    </div>
+                                </div>
+                                <div class="w3-row w3-third w3-small">
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Deaf" type="checkbox" />Deafened
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Incap" type="checkbox" />Incapac.
+                                    </div>
+                                    <div class="w3-row">
+                                        <input id="cbEncCardChar6Petr" type="checkbox" />Petrified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MONSTER SUMMARY -->
+                    <div class="w3-container w3-white" style="width: 100%;">
+
+                        <div class="w3-third w3-round w3-white w3-small padding-4">
+                            <hr />
+                            <div class="w3-row">
+                                <label class="">CLASS &amp; LEVEL</label>
+                                <br />
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-third w3-middle">
+                                    <input type="text" id="txtEncCardMon1Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                      border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                      border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+                                </div>
+                                <div class="w3-third w3-middle">
+                                    <input type="text" id="txtEncCardMon1Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                </div>
+                                <div class="w3-third">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-third w3-center "><label>AC</label></div>
+                                <div class="w3-third w3-center "><label>HP</label></div>
+                                <div class="w3-third w3-center ">&nbsp;</div>
+                            </div>
+                            <div class="w3-row">
+                                <label id="lblEncCardMon1Nm"     class="w3-third ">NAME</label>
+                                <label id="lblEncCardMon1AtkBns" class="w3-third ">ATK BONUS</label>
+                                <label id="lblEncCardMon1DmgTyp" class="w3-third ">DMG TYPE</label>
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon1Wpn1"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon1AtkBns1" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon1DmgTyp1" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon1Wpn2"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon1AtkBns2" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon1DmgTyp2" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon1Wpn3"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon1AtkBns3" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon1DmgTyp3" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon1Wpn4"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon1AtkBns4" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon1DmgTyp4" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon1Wpn5"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon1AtkBns5" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon1DmgTyp5" class="twofifth w3-center" />
+                            </div>
+                            <hr />
+                        </div>
+
+                        <div class="w3-third w3-round w3-white w3-small padding-4">
+                            <hr />
+                            <div class="w3-row">
+                                <label class="">CLASS &amp; LEVEL</label>  
+                                <br />
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-third w3-middle">
+                                    <input type="text" id="txtEncCardMon2Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                      border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                      border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+                                </div>
+                                <div class="w3-third w3-middle">
+                                    <input type="text" id="txtEncCardMon2Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                </div>
+                                <div class="w3-third">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-third w3-center "><label>AC</label></div>
+                                <div class="w3-third w3-center "><label>HP</label></div>
+                                <div class="w3-third w3-center ">&nbsp;</div>
+                            </div>
+                            <div class="w3-row">
+                                <label id="lblEncCardMon2Nm"     class="w3-third ">NAME</label>
+                                <label id="lblEncCardMon2AtkBns" class="w3-third ">ATK BONUS</label>
+                                <label id="lblEncCardMon2DmgTyp" class="w3-third ">DMG TYPE</label>
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon2Wpn1"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon2AtkBns1" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon2DmgTyp1" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon2Wpn2"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon2AtkBns2" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon2DmgTyp2" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon2Wpn3"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon2AtkBns3" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon2DmgTyp3" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon2Wpn4"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon2AtkBns4" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon2DmgTyp4" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon2Wpn5"    class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon2AtkBns5" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon2DmgTyp5" class="twofifth w3-center" />
+                            </div>
+                            <hr />
+                        </div>
+
+                        <div class="w3-third w3-round w3-white w3-small padding-4">
+                            <hr />
+                            <div class="w3-row">
+                                <label class="">CLASS &amp; LEVEL</label>
+                                <br />
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-third w3-middle">
+                                    <input type="text" id="txtEncCardMon3Ac" class="w3-middle w3-center"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;
+                                      border-top-left-radius:    0%; border-top-right-radius:    0%;
+                                      border-bottom-left-radius: 40%; border-bottom-right-radius: 40%;" />
+                                </div>
+                                <div class="w3-third w3-middle">
+                                    <input type="text" id="txtEncCardMon3Hp" class="w3-middle w3-center w3-round"
+                                           style="margin: 10px 0 0 20px; border-style: double; height: 50px; width: 45px;" />
+                                </div>
+                                <div class="w3-third">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-third w3-center "><label>AC</label></div>
+                                <div class="w3-third w3-center "><label>HP</label></div>
+                                <div class="w3-third w3-center ">&nbsp;</div>
+                            </div>
+                            <div class="w3-row">
+                                <label id="lblEncCardMon3Nm"     class="w3-third ">NAME</label>
+                                <label id="lblEncCardMon3AtkBns" class="w3-third ">ATK BONUS</label>
+                                <label id="lblEncCardMon3DmgTyp" class="w3-third ">DMG TYPE</label>
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon3Wpn1"   class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon3AtkBns1" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon3DmgTyp1" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon3Wpn2"   class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon3AtkBns2" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon3DmgTyp2" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon3Wpn3"   class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon3AtkBns3" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon3DmgTyp3" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon3Wpn4"   class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon3AtkBns4" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon3DmgTyp4" class="twofifth w3-center" />
+                            </div>
+                            <div class="w3-row">
+                                <input type="text" id="txtEncCardMon3Wpn5"   class="twofifth w3-center" />
+                                <input type="text" id="txtEncCardMon3AtkBns5" class="fifth w3-center" />
+                                <input type="text" id="txtEndCardMon3DmgTyp5" class="twofifth w3-center" />
+                            </div>
+                            <hr />
+                        </div>
+
+                    </div>
+
+                    <input class="w3-btn w3-red w3-round-xlarge w3-right" id="btnResetMons" type="button"
+                           style="border-style: double; font-size: 8px; padding: 0 0 0 0; font-size: 14px;
+                                  width: 100px; height: 25px;"
+                           value="Reset Mons." onclick="ResetMons();" />
+
+                    <!-- END OF MONSTER SUMMARY-->
+
+                </div>
+
+                <!-- INITIATIVE ORDER -->
+                <div class="w3-container sixth w3-white w3-right" style="height: 950px;">
+                    <div class="w3-row w3-round-xlarge" style="border-style: double;">
+                        <label class="w3-small padding-4">Initiative Order:</label>
+                    </div>
+                    <div class="w3-row">
+                        <div class="w3-row ">&nbsp;&nbsp;1 <input id="txtEncCardInit01" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;2 <input id="txtEncCardInit02" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;3 <input id="txtEncCardInit03" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;4 <input id="txtEncCardInit04" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;5 <input id="txtEncCardInit05" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;6 <input id="txtEncCardInit06" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;7 <input id="txtEncCardInit07" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;8 <input id="txtEncCardInit08" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">&nbsp;&nbsp;9 <input id="txtEncCardInit09" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">10 <input id="txtEncCardInit10" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">11 <input id="txtEncCardInit11" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">12 <input id="txtEncCardInit12" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">13 <input id="txtEncCardInit13" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">14 <input id="txtEncCardInit14" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">15 <input id="txtEncCardInit15" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">16 <input id="txtEncCardInit16" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">17 <input id="txtEncCardInit17" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">18 <input id="txtEncCardInit18" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">19 <input id="txtEncCardInit19" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">20 <input id="txtEncCardInit20" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">21 <input id="txtEncCardInit21" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">22 <input id="txtEncCardInit22" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">23 <input id="txtEncCardInit23" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">24 <input id="txtEncCardInit24" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">25 <input id="txtEncCardInit25" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">26 <input id="txtEncCardInit26" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">27 <input id="txtEncCardInit27" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">28 <input id="txtEncCardInit28" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">29 <input id="txtEncCardInit29" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+                        <div class="w3-row ">30 <input id="txtEncCardInit30" class="w3-center" type="text" style="border: 0 0 1px 0 solid #aaa; width: 90px;" /></div>
+
+                        <div class="w3-row" style="margin-top: 32px;">
+                            <input class="w3-btn w3-red w3-round-xlarge" id="btnResetInit" type="button"
+                                   style="border-style: double; font-size: 8px; padding: 0 0 0 0; font-size: 14px;
+                                          width: 100px; height: 25px;"
+                                   value="Reset Init." onclick="ResetInit();" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILLER DIV -->
+                <div class="w3-white" style="width: 100%; height: 100%;">
+                    &nbsp;
+                </div>
+                <!-- END OF - FILLER DIV -->
+
+                <!-- END OF INITIATIVE ORDER -->
+
+            </div>
+            <!-- END OF PLAYER SUMMARY -->
+
+        </div>
+        <!-- END OF TIME TRACKER -->
+
+        <!-- FILLER DIV -->
+        <div style="width: 100%; height: 100%;">
+            &nbsp;
+        </div>
+        <!-- END OF - FILLER DIV -->
+
+        <!-- CHARACTER NOTES -->
+        <div id="divNoteHolder" class="w3-row">
+            <div class="note w3-card-4 w3-khaki w3-left" style="margin-left: 10px;">
+                <textarea id="txtNote1" class="w3-input"
+                          style="background-color: transparent;  background-repeat: repeat; width: 100%; height: 100%;">Note Text...</textarea>
+            </div>
+            <div class="note w3-card-4 w3-khaki w3-left" style="margin-left: 10px;">
+                <textarea id="txtNote2" class="w3-input"
+                          style="background-color: transparent; background-repeat: repeat; width: 100%; height: 100%;">Note Text...</textarea>
+            </div>
+            <div class="note w3-card-4 w3-khaki w3-left" style="margin-left: 10px;">
+                <textarea id="txtNote3" class="w3-input"
+                          style="background-color: transparent; background-repeat: repeat; width: 100%; height: 100%;">Note Text...</textarea>
+            </div>
+        </div>
+
+        <!-- FILLER DIV -->
+        <div style="width: 100%; height: 100%;">
+            &nbsp;
+        </div>
+        <!-- END OF - FILLER DIV -->
+
+        <!-- MAP-MAKER OVERVIEW -->
+        <div class="w3-animate-opacity w3-card-4 w3-round-xxlarge w3-white">
+            <div class="w3-row">
+                <!-- MAP-MAKER COORDINATE DISPLAY -->
+                <div class="w3-third">
+                    &nbsp;
+                </div>
+                <div id="divCoordsDisplay" class="divCoordsDisplay w3-third w3-margin-top w3-xlarge w3-center w3-border-bottom">
+                    &nbsp;
+                </div>
+                <div class="w3-third">
+                    &nbsp;
+                </div>
+                <!-- END OF - MAP-MAKER COORDINATE DISPLAY -->
+            </div>
+            <div class="w3-row">
+                <div class="w3-row">
+                    <!-- CANVAS -->
+                    <canvas id="cnvMap" class="cnvMap w3-section" width="1221" height="500"
+                            style="border: 5px solid gold; background-image: url('grid_background.jpg');"
+                            onclick="canvas_Draw(event);"
+                            onmousemove="canvas_getCoord(event)" onmouseout="canvas_clearCoord()">
+                        Your browser does not support the HTML5 canvas tag
+                    </canvas>
+                    <!-- END OF - CANVAS -->
+                    <!-- DRAWING TOOLS -->
+                    <div class="w3-margin">
+                        <div class="w3-row">
+                            <input type="button" onclick="canvas_Clear();" id="btnCanvasClear" class="w3-button w3-pale-red w3-border w3-border-black w3-round-xlarge fifth" value="Clear Canvas" />
+                            <input type="button" onclick="canvas_SetToolType('Erase');" id="btnCanvasErase" class="w3-button w3-pale-red w3-border w3-border-black w3-round-xlarge fifth" value="Erase" />
+                            <input type="button" onclick="canvas_SetToolType('YellowStar');" id="btnCanvasYellowStar" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xlarge fifth" value="Yellow Star" />
+                            <input type="button" onclick="canvas_SetToolType('PurpleStar');" id="btnCanvasPurpleStar" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xlarge fifth" value="Purple Star" />
+                            <input type="button" onclick="canvas_SetToolType('TealStar');" id="btnCanvasTealStar" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xlarge fifth" value="Teal Star" />
+                        </div>
+                        <div class="w3-row">
+                            <input type="button" onclick="canvas_SetToolType('Room');" id="btnCanvasRoom" class="w3-button w3-pale-green w3-border w3-border-black w3-round-xlarge fifth" value="Room" />
+                            <input type="button" onclick="canvas_SetToolType('Line');" id="btnCanvasLine" class="w3-button w3-pale-green w3-border w3-border-black w3-round-xlarge fifth" value="Line" />
+                            <input type="button" onclick="canvas_SetToolType('Corridor');" id="btnCanvasCorridor" class="w3-button w3-pale-green w3-border w3-border-black w3-round-xlarge fifth" value="Corridor" />
+                            <input type="button" onclick="canvas_SetToolType('Door');" id="btnCanvasDoor" class="w3-button w3-pale-green w3-border w3-border-black w3-round-xlarge fifth" value="Door" />
+                            <input type="button" onclick="canvas_SetToolType('Circle');" id="btnCanvasCircle" class="w3-button w3-pale-green w3-border w3-border-black w3-round-xlarge fifth" value="Circle" />
+                        </div>
+                        <div class="w3-row">            
+                            <input type="button" onclick="canvas_SetToolType('Player1');" id="btnCanvasPlayer1" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xxlarge" value="P1" />
+                            <input type="button" onclick="canvas_SetToolType('Player2');" id="btnCanvasPlayer2" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xxlarge" value="P2" />
+                            <input type="button" onclick="canvas_SetToolType('Player3');" id="btnCanvasPlayer3" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xxlarge" value="P3" />
+                            <input type="button" onclick="canvas_SetToolType('Player4');" id="btnCanvasPlayer4" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xxlarge" value="P4" />
+                            <input type="button" onclick="canvas_SetToolType('Player5');" id="btnCanvasPlayer5" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xxlarge" value="P5" />
+                            <input type="button" onclick="canvas_SetToolType('Player6');" id="btnCanvasPlayer6" class="w3-button w3-pale-blue w3-border w3-border-black w3-round-xxlarge" value="P6" />
+                            <input type="button" onclick="canvas_SetToolType('Encounter');" id="btnCanvasEncounter" class="w3-button w3-pale-red w3-border w3-border-black w3-round-xxlarge" value="Encounter" />
+                        </div>
+                    <!-- END OF - DRAWING TOOLS -->
+                </div>
+
+            </div>
+        </div>
+        
+
+        <div class="w3-margin">
+            &nbsp;
+        </div>
+
+    </form>
+    
+</div>
+<!-- END OF SCROLLABLE DIV -->
+
+</body>
+
+</html>
